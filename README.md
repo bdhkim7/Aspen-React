@@ -12,6 +12,29 @@ npm.cmd run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+## Smoke tests (Playwright)
+
+Against the Amplify preview (default):
+
+```powershell
+npm.cmd run test:e2e
+```
+
+Against a local production build (same gate Amplify uses before deploy):
+
+```powershell
+npm.cmd run build
+npm.cmd run test:e2e:ci
+```
+
+Against a local `next dev` server:
+
+```powershell
+$env:PLAYWRIGHT_BASE_URL="http://localhost:3000"; npm.cmd run test:e2e
+```
+
+Every Amplify deploy runs `test:e2e:ci` after `build`. If tests fail, the job stops and **nothing is published**. GitHub Actions also runs the same gate on `main` pushes and PRs.
+
 If PowerShell blocks `npm`, use `npm.cmd` instead or run:
 
 ```powershell

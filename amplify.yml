@@ -4,9 +4,12 @@ frontend:
     preBuild:
       commands:
         - npm ci
+        - npx playwright install --with-deps chromium
     build:
       commands:
         - npm run build
+        # Smoke tests gate deploy: failure here stops Amplify from publishing
+        - npm run test:e2e:ci
   artifacts:
     baseDirectory: .next
     files:
@@ -15,3 +18,4 @@ frontend:
     paths:
       - node_modules/**/*
       - .next/cache/**/*
+      - .cache/ms-playwright/**/*
