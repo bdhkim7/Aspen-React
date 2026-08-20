@@ -1,0 +1,46 @@
+export type HtmlRedirect = {
+  source: string;
+  destination: string;
+};
+
+/** Old static-site URLs → App Router paths. Used by next.config.ts. */
+export const htmlRedirects: HtmlRedirect[] = [
+  { source: "/index.html", destination: "/" },
+  { source: "/aboutus.html", destination: "/about-us" },
+  { source: "/commitment.html", destination: "/commitment" },
+  { source: "/contact-us.html", destination: "/contact-us" },
+  { source: "/faqs.html", destination: "/faqs" },
+  { source: "/thankyou.html", destination: "/thank-you" },
+  { source: "/leadership.html", destination: "/about-us/leadership" },
+  { source: "/our-history.html", destination: "/about-us/history" },
+  { source: "/dental.html", destination: "/industries/dental" },
+  { source: "/orthopedic.html", destination: "/industries/orthopedic" },
+  { source: "/clinics.html", destination: "/industries/clinics" },
+  { source: "/mobile.html", destination: "/industries/mobile" },
+  { source: "/military.html", destination: "/industries/military" },
+  { source: "/urgent-care.html", destination: "/industries/urgent-care" },
+  { source: "/vet.html", destination: "/industries/veterinary" },
+  { source: "/europa.html", destination: "/products/europa-85" },
+  { source: "/europa90.html", destination: "/products/europa-90" },
+  { source: "/europa85L.html", destination: "/products/europa-85l" },
+  { source: "/apx-24.html", destination: "/products/apx-24" },
+  { source: "/iODR1417-GF.html", destination: "/products/iodr-1417-gf" },
+  { source: "/iODR1417.html", destination: "/products/iodr-1417" },
+  { source: "/iODR1717.html", destination: "/products/iodr-1717" },
+  { source: "/AspenVet.html", destination: "/products/aspen-vet" },
+  { source: "/laica85L.html", destination: "/products/laica-85l" },
+  { source: "/laica90.html", destination: "/products/laica-90" },
+  { source: "/FDR-HD.html", destination: "/products/fdr-hd" },
+  { source: "/exprimer.html", destination: "/products/exprimer" },
+  { source: "/vieworks-panel.html", destination: "/products/vieworks-panel" },
+  { source: "/AspenView_EN.html", destination: "/software/aspenview" },
+  { source: "/AspenView_ES.html", destination: "/software/aspenview-es" },
+  { source: "/WS80A.html", destination: "/products/ws80a" },
+  { source: "/RS85.html", destination: "/products/rs85" },
+  { source: "/RS80A.html", destination: "/products/rs80a" },
+  { source: "/rosem.html", destination: "/products/rosem" },
+  { source: "/HS70A.html", destination: "/products/hs70a" },
+  { source: "/HERA-W10.html", destination: "/products/hera-w10" },
+  { source: "/BU_AiR-Touch.html", destination: "/products/air-touch" },
+  { source: "/BU_airtouch.html", destination: "/products/air-touch" },
+];

@@ -1,0 +1,122 @@
+{
+  "europa-85": {
+    "title": "Europa",
+    "source": "europa.html"
+  },
+  "europa-85l": {
+    "title": "Europa",
+    "source": "europa85L.html"
+  },
+  "apx-24": {
+    "title": "APX-24",
+    "source": "apx-24.html"
+  },
+  "iodr-1417-gf": {
+    "title": "iODR1417-GF",
+    "source": "iODR1417-GF.html"
+  },
+  "iodr-1417": {
+    "title": "iODR1417",
+    "source": "iODR1417.html"
+  },
+  "iodr-1717": {
+    "title": "iODR1417",
+    "source": "iODR1717.html"
+  },
+  "aspen-vet": {
+    "title": "AspenVet",
+    "source": "AspenVet.html"
+  },
+  "laica-85l": {
+    "title": "Laica85L",
+    "source": "laica85L.html"
+  },
+  "laica-90": {
+    "title": "laica90",
+    "source": "laica90.html"
+  },
+  "fdr-hd": {
+    "title": "FDR Heavy Duty",
+    "source": "FDR-HD.html"
+  },
+  "exprimer": {
+    "title": "Exprimer",
+    "source": "exprimer.html"
+  },
+  "vieworks-panel": {
+    "title": "Vieworks Detectors",
+    "source": "vieworks-panel.html"
+  },
+  "ws80a": {
+    "title": "WS80A with Elite",
+    "source": "WS80A.html"
+  },
+  "rs85": {
+    "title": "RS85",
+    "source": "RS85.html"
+  },
+  "rs80a": {
+    "title": "RS80A",
+    "source": "RS80A.html"
+  },
+  "rosem": {
+    "title": "Rose M",
+    "source": "rosem.html"
+  },
+  "hs70a": {
+    "title": "HS70A",
+    "source": "HS70A.html"
+  },
+  "hera-w10": {
+    "title": "HERA W10",
+    "source": "HERA-W10.html"
+  },
+  "air-touch": {
+    "title": "Next Generation Medical Device Manufacturer",
+    "source": "BU_AiR-Touch.html"
+  },
+  "dental": {
+    "title": "Industry | Dental",
+    "source": "dental.html"
+  },
+  "clinics": {
+    "title": "Industry | Clinical",
+    "source": "clinics.html"
+  },
+  "mobile": {
+    "title": "Industry | Mobile",
+    "source": "mobile.html"
+  },
+  "military": {
+    "title": "Industry | Military",
+    "source": "military.html"
+  },
+  "urgent-care": {
+    "title": "Industry | Urgent Care",
+    "source": "urgent-care.html"
+  },
+  "veterinary": {
+    "title": "Industry | Veterinary",
+    "source": "vet.html"
+  },
+  "orthopedic": {
+    "title": "Industry | Orthopedic",
+    "source": "orthopedic.html"
+  },
+  "aspenview": {
+    "title": "AspenView DR Acquisition Software",
+    "source": "AspenView_EN.html"
+  },
+  "aspenview-es": {
+    "title": "AspenView DR Acquisition Software",
+    "source": "AspenView_ES.html"
+  },
+  "leadership": {
+    "title": "Next Generation Medical Device Manufacturer",
+    "source": "leadership.html"
+  },
+  "history": {
+    "title": "Next Generation Medical Device Manufacturer",
+    "source": "our-history.html"
+  }
+}
