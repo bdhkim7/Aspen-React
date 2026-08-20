@@ -1,11 +1,11 @@
-# Aspen Web
+# Aspen-React
 
 Next.js App Router site for [Aspen Imaging Healthcare](https://www.aspenimaging.com). The original static HTML site lives in the sibling `Aspen/` folder and is kept as backup — this project is the migration target.
 
 ## Local development
 
 ```powershell
-cd c:\Users\DHK\Documents\AWS\aspen-web
+cd c:\Users\DHK\Documents\AWS\Aspen-React
 npm.cmd install
 npm.cmd run dev
 ```
