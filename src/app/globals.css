@@ -110,3 +110,135 @@ body {
     margin-top: 2rem;
   }
 }
+
+/* Smooth top progress bar for client navigations (keeps page content mounted) */
+.nav-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 100000;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+
+.nav-progress--done {
+  opacity: 0;
+}
+
+.nav-progress__bar {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #086ad8, #4aa3ff);
+  box-shadow: 0 0 8px rgba(8, 106, 216, 0.45);
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: 0 1px 1px 0;
+}
+
+/* Force-close CSS hover menus after SPA navigation until mouse leaves nav */
+.navigation-menu--locked > ul > li.has-children .megamenu,
+.navigation-menu--locked > ul > li.has-children > .submenu {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateY(20px) !important;
+  transition: none !important;
+}
+
+/* Consistent product media framing */
+.product-media {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.product-media img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.product-media--contain {
+  min-height: 300px;
+  padding: 2rem 1.75rem;
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+}
+
+.product-media--contain img {
+  max-height: 360px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.product-media--cover {
+  min-height: 300px;
+  padding: 0;
+  background: #e8edf3;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+}
+
+.product-media--cover img {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  max-height: 420px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.product-media--hero {
+  min-height: 340px;
+}
+
+.product-media--hero.product-media--contain img {
+  max-height: 400px;
+}
+
+.product-media--intro.product-media--contain img {
+  max-height: 380px;
+}
+
+.product-media--highlight {
+  min-height: 280px;
+}
+
+/* Hero sits on the existing gray band — avoid a second white card */
+.preview-hero-area .product-media--contain {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0.5rem 0;
+  min-height: 0;
+}
+
+.preview-hero-area .product-media--contain img {
+  mix-blend-mode: multiply;
+}
+
+.preview-hero-area .product-media--cover {
+  border: none;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+}
+
+.product-feature-icon-fallback {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(8, 106, 216, 0.1);
+  color: #086ad8;
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}

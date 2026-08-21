@@ -30,8 +30,8 @@ export const detectorLinks: NavLink[] = [
 ];
 
 export const accessoryLinks: NavLink[] = [
-  { href: "/contact-us", label: "A-Guard" },
-  { href: "/contact-us", label: "Mobile Panel Holder" },
+  { href: "/products/a-guard", label: "A-Guard" },
+  { href: "/products/mobile-panel-holder", label: "Mobile Panel Holder" },
 ];
 
 export const medicalSystemLinks: NavLink[] = [
@@ -39,16 +39,8 @@ export const medicalSystemLinks: NavLink[] = [
   { href: "/products/europa-85", label: "Europa85" },
   { href: "/products/europa-90", label: "Europa90" },
   { href: "/products/apx-24", label: "APX-24" },
-  {
-    href: "/assets/brochure/AspenFDR_brochure.pdf",
-    label: "AspenFDR",
-    external: true,
-  },
-  {
-    href: "/assets/brochure/AspenXDR_brochure.pdf",
-    label: "AspenXDR",
-    external: true,
-  },
+  { href: "/products/aspen-fdr", label: "AspenFDR" },
+  { href: "/products/aspen-xdr", label: "AspenXDR" },
 ];
 
 export const softwareLinks: NavLink[] = [
@@ -60,7 +52,7 @@ export const veterinaryLinks: NavLink[] = [
   { href: "/products/aspen-vet", label: "AspenVet Table" },
   { href: "/products/laica-85l", label: "Laica85L" },
   { href: "/products/laica-90", label: "Laica 90" },
-  { href: "/industries/veterinary", label: "Titan 24" },
+  { href: "/products/titan-24", label: "Titan 24" },
 ];
 
 export const contactLinks: NavLink[] = [
@@ -78,8 +70,8 @@ export const industryLinks: NavLink[] = [
 ];
 
 export const footerSolutionLinks: NavLink[] = [
-  { href: "/assets/brochure/AspenXDR_brochure.pdf", label: "AspenXDR", external: true },
-  { href: "/assets/brochure/AspenFDR_brochure.pdf", label: "AspenFDR", external: true },
+  { href: "/products/aspen-xdr", label: "AspenXDR" },
+  { href: "/products/aspen-fdr", label: "AspenFDR" },
   { href: "/products/europa-85", label: "Europa85" },
   { href: "/products/europa-90", label: "Europa90" },
   { href: "/products/iodr-1417-gf", label: "iODR1417-GF" },

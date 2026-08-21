@@ -1,5 +1,6 @@
 import { ContactForm } from "@/components/ContactForm";
 import { ProductAddOnsSection } from "@/components/product/ProductAddOnsSection";
+import type { CSSProperties } from "react";
 import type { ProductPageContent } from "@/types/product";
 
 type ProductPageViewProps = {
@@ -32,6 +33,39 @@ function HighlightedText({
   );
 }
 
+function ProductMedia({
+  src,
+  alt,
+  fit,
+  imageStyle,
+  className = "",
+  legacyDefaultStyle,
+}: {
+  src: string;
+  alt: string;
+  fit?: "contain" | "cover";
+  imageStyle?: CSSProperties;
+  className?: string;
+  legacyDefaultStyle?: CSSProperties;
+}) {
+  if (!fit) {
+    return (
+      <img
+        src={src}
+        alt={alt}
+        className={`img-fluid ${className}`.trim()}
+        style={imageStyle ?? legacyDefaultStyle}
+      />
+    );
+  }
+
+  return (
+    <div className={`product-media product-media--${fit} ${className}`.trim()}>
+      <img src={src} alt={alt} style={imageStyle} />
+    </div>
+  );
+}
+
 export function ProductPageView({ product }: ProductPageViewProps) {
   const showDiscover =
     Boolean(product.inTheBox) ||
@@ -54,16 +88,16 @@ export function ProductPageView({ product }: ProductPageViewProps) {
             <div className="col-lg-6 col-md-6">
               <div className="processing-hero-images-wrap">
                 <div className="processing-hero-images">
-                  <img
+                  <ProductMedia
                     src={product.hero.image}
-                    className="img-fluid"
-                    style={
-                      product.hero.imageStyle ?? {
-                        maxWidth: "99%",
-                        marginLeft: "5%",
-                      }
-                    }
                     alt={product.hero.name}
+                    fit={product.hero.imageFit}
+                    imageStyle={product.hero.imageStyle}
+                    className="product-media--hero"
+                    legacyDefaultStyle={{
+                      maxWidth: "99%",
+                      marginLeft: "5%",
+                    }}
                   />
                 </div>
               </div>
@@ -75,8 +109,8 @@ export function ProductPageView({ product }: ProductPageViewProps) {
       <section className="section-space--ptb_100">
         <div className="our-experience-wrapper">
           <div className="container">
-            <div className="row">
-              <div className="col-lg-6">
+            <div className="row align-items-center">
+              <div className={product.intro.image ? "col-lg-6" : "col-lg-10 col-xl-8"}>
                 <div className="section-title small-mb__40 tablet-mb__40">
                   <h6 className="section-sub-title mb-20">{product.intro.eyebrow}</h6>
                   <h3 className="heading">
@@ -96,20 +130,24 @@ export function ProductPageView({ product }: ProductPageViewProps) {
                   </h6>
                 </div>
               </div>
-              <div className="col-lg-6">
-                <img
-                  src={product.intro.image}
-                  className="img-fluid"
-                  alt={product.hero.name}
-                  style={product.intro.imageStyle ?? { width: "120%" }}
-                />
-              </div>
+              {product.intro.image ? (
+                <div className="col-lg-6">
+                  <ProductMedia
+                    src={product.intro.image}
+                    alt={product.hero.name}
+                    fit={product.intro.imageFit}
+                    imageStyle={product.intro.imageStyle}
+                    className="product-media--intro"
+                    legacyDefaultStyle={{ width: "120%" }}
+                  />
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
 
         {product.intro.featureCards?.length ? (
-          <div className="container">
+          <div className="container section-space--mt_60">
             <div className="row">
               <div className="col-12">
                 <div className="feature-list__one">
@@ -118,9 +156,15 @@ export function ProductPageView({ product }: ProductPageViewProps) {
                       <div key={card.title} className="col-lg-4 col-md-6">
                         <div className="ht-box-icon style-01 single-svg-icon-box">
                           <div className="icon-box-wrap">
-                            <div className="icon">
-                              <img src={card.icon} alt="" width={64} height={64} />
-                            </div>
+                            {card.icon ? (
+                              <div className="icon">
+                                <img src={card.icon} alt="" width={64} height={64} />
+                              </div>
+                            ) : (
+                              <div className="icon product-feature-icon-fallback" aria-hidden>
+                                <span>{card.title.charAt(0)}</span>
+                              </div>
+                            )}
                             <div className="content">
                               <h5 className="heading">{card.title}</h5>
                               {card.bullets?.length ? (
@@ -208,17 +252,18 @@ export function ProductPageView({ product }: ProductPageViewProps) {
                   className="col-lg-6 col-md-6 noLRPadding"
                   style={item.imageWrapperStyle}
                 >
-                  <img
+                  <ProductMedia
                     src={item.image}
-                    className="img-fluid"
                     alt={item.title}
-                    style={item.imageStyle}
+                    fit={item.imageFit}
+                    imageStyle={item.imageStyle}
+                    className="product-media--highlight"
                   />
                 </div>
               );
 
               return (
-                <div key={item.title} className="row section-space--mt_20">
+                <div key={item.title} className="row section-space--mt_20 align-items-center">
                   {item.imageFirst ? (
                     <>
                       {imageCol}
@@ -371,13 +416,17 @@ export function ProductPageView({ product }: ProductPageViewProps) {
                 <div className="cta-button-group--one text-center">
                   <a
                     href={product.cta.brochureHref}
-                    download={product.cta.brochureFilename}
+                    {...(product.cta.action === "contact" || !product.cta.brochureFilename
+                      ? {}
+                      : { download: product.cta.brochureFilename })}
                     className="btn btn--white btn-one"
                   >
                     <span className="btn-icon mr-2">
                       <i className="far fa-info-circle" />
                     </span>
-                    Download Brochure (PDF)
+                    {product.cta.action === "contact" || !product.cta.brochureFilename
+                      ? "Contact Us"
+                      : "Download Brochure (PDF)"}
                   </a>
                 </div>
               </div>

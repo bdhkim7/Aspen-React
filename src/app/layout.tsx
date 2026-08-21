@@ -3,6 +3,7 @@ import Script from "next/script";
 import { Montserrat } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { NavigationProgressRoot } from "@/components/NavigationProgressRoot";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -57,6 +58,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           </noscript>
         ) : null}
         <SiteHeader />
+        <NavigationProgressRoot />
         {children}
         <SiteFooter />
       </body>

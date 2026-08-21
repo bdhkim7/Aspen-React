@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 
 export type ProductFeatureCard = {
-  icon: string;
+  icon?: string;
   title: string;
   bullets?: string[];
   disclaimer?: string;
@@ -16,6 +16,7 @@ export type ProductHighlight = {
   imageFirst?: boolean;
   imageStyle?: CSSProperties;
   imageWrapperStyle?: CSSProperties;
+  imageFit?: "contain" | "cover";
 };
 
 export type ProductAddOn = {
@@ -51,6 +52,8 @@ export type ProductPageContent = {
     name: string;
     image: string;
     imageStyle?: CSSProperties;
+    /** How the hero image should sit in its column. */
+    imageFit?: "contain" | "cover";
   };
   intro: {
     eyebrow: string;
@@ -59,8 +62,9 @@ export type ProductPageContent = {
     headingHighlight?: string;
     body: string;
     bodyHighlight?: string;
-    image: string;
+    image?: string;
     imageStyle?: CSSProperties;
+    imageFit?: "contain" | "cover";
     featureCards?: ProductFeatureCard[];
   };
   highlights?: {
@@ -91,6 +95,8 @@ export type ProductPageContent = {
     highlight: string;
     brochureHref: string;
     brochureFilename: string;
+    /** Defaults to brochure download; use "contact" for inquiry CTAs. */
+    action?: "brochure" | "contact";
   };
   gallery?: ProductGalleryGroup[];
 };

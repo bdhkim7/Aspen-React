@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import {
   accessoryLinks,
   companyLinks,
@@ -13,7 +14,13 @@ import {
   type NavLink,
 } from "@/data/site";
 
-function MenuLinks({ links }: { links: NavLink[] }) {
+function MenuLinks({
+  links,
+  onNavigate,
+}: {
+  links: NavLink[];
+  onNavigate?: () => void;
+}) {
   return (
     <ul>
       {links.map((link) => (
@@ -23,7 +30,7 @@ function MenuLinks({ links }: { links: NavLink[] }) {
               <span>{link.label}</span>
             </a>
           ) : (
-            <Link href={link.href}>
+            <Link href={link.href} onClick={onNavigate}>
               <span>{link.label}</span>
             </Link>
           )}
@@ -34,7 +41,33 @@ function MenuLinks({ links }: { links: NavLink[] }) {
 }
 
 export function SiteHeader() {
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [menusLocked, setMenusLocked] = useState(false);
+  /** Tracks whether the pointer is currently over the desktop nav. */
+  const pointerInNav = useRef(false);
+
+  const lockMenusUntilLeave = () => {
+    setMobileOpen(false);
+    // Only keep the CSS lock if the cursor is still over the nav (prevents the
+    // open hover menu from flashing back after SPA navigation). If the pointer
+    // is already outside, mouseLeave will never fire — so do not leave locked.
+    if (pointerInNav.current) {
+      setMenusLocked(true);
+    } else {
+      setMenusLocked(false);
+    }
+  };
+
+  const isFirstPath = useRef(true);
+  useEffect(() => {
+    if (isFirstPath.current) {
+      isFirstPath.current = false;
+      return;
+    }
+    lockMenusUntilLeave();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
 
   return (
     <>
@@ -45,7 +78,7 @@ export function SiteHeader() {
               <div className="col-lg-12">
                 <div className="header position-relative">
                   <div className="header__logo">
-                    <Link href="/">
+                    <Link href="/" onClick={lockMenusUntilLeave}>
                       <img
                         src="/assets/images/logo/Aspen-Imaging_Logo_Full_Stacked_Gray.png"
                         className="img-fluid responsive-logo"
@@ -54,17 +87,33 @@ export function SiteHeader() {
                     </Link>
                   </div>
 
-                  <div className="header__navigation preview-menu d-none d-xl-block">
-                    <nav className="navigation-menu navigation-menu-right">
+                  <div
+                    className="header__navigation preview-menu d-none d-xl-block"
+                    onPointerEnter={() => {
+                      pointerInNav.current = true;
+                    }}
+                    onPointerLeave={() => {
+                      pointerInNav.current = false;
+                      setMenusLocked(false);
+                    }}
+                  >
+                    <nav
+                      className={`navigation-menu navigation-menu-right${
+                        menusLocked ? " navigation-menu--locked" : ""
+                      }`}
+                    >
                       <ul>
-                        <li className="has-children has-children--multilevel-submenu">
+                        <li
+                          className="has-children has-children--multilevel-submenu"
+                          onPointerEnter={() => setMenusLocked(false)}
+                        >
                           <a>
                             <span>Company</span>
                           </a>
                           <ul className="submenu">
                             {companyLinks.map((link) => (
                               <li key={link.href}>
-                                <Link href={link.href}>
+                                <Link href={link.href} onClick={lockMenusUntilLeave}>
                                   <span>{link.label}</span>
                                 </Link>
                               </li>
@@ -72,7 +121,10 @@ export function SiteHeader() {
                           </ul>
                         </li>
 
-                        <li className="has-children">
+                        <li
+                          className="has-children"
+                          onPointerEnter={() => setMenusLocked(false)}
+                        >
                           <a href="#products">
                             <span>Solutions</span>
                           </a>
@@ -80,33 +132,51 @@ export function SiteHeader() {
                             <li>
                               <h2 className="page-list-title">Flat Panel Detectors</h2>
                               <h4 className="page-list-title">iODR Series</h4>
-                              <MenuLinks links={detectorLinks} />
+                              <MenuLinks
+                                links={detectorLinks}
+                                onNavigate={lockMenusUntilLeave}
+                              />
                               <br />
                               <h4 className="page-list-title">Accessories</h4>
-                              <MenuLinks links={accessoryLinks} />
+                              <MenuLinks
+                                links={accessoryLinks}
+                                onNavigate={lockMenusUntilLeave}
+                              />
                             </li>
                             <li>
                               <h2 className="page-list-title">Medical Systems</h2>
-                              <MenuLinks links={medicalSystemLinks} />
+                              <MenuLinks
+                                links={medicalSystemLinks}
+                                onNavigate={lockMenusUntilLeave}
+                              />
                               <br />
                               <h4 className="page-list-title">Software</h4>
-                              <MenuLinks links={softwareLinks} />
+                              <MenuLinks
+                                links={softwareLinks}
+                                onNavigate={lockMenusUntilLeave}
+                              />
                             </li>
                             <li>
                               <h2 className="page-list-title">Veterinary</h2>
-                              <MenuLinks links={veterinaryLinks} />
+                              <MenuLinks
+                                links={veterinaryLinks}
+                                onNavigate={lockMenusUntilLeave}
+                              />
                             </li>
                           </ul>
                         </li>
 
-                        <li className="has-children has-children--multilevel-submenu">
+                        <li
+                          className="has-children has-children--multilevel-submenu"
+                          onPointerEnter={() => setMenusLocked(false)}
+                        >
                           <a>
                             <span>Contact</span>
                           </a>
                           <ul className="submenu">
                             {contactLinks.map((link) => (
                               <li key={link.href}>
-                                <Link href={link.href}>
+                                <Link href={link.href} onClick={lockMenusUntilLeave}>
                                   <span>{link.label}</span>
                                 </Link>
                               </li>
@@ -146,7 +216,7 @@ export function SiteHeader() {
               <div className="row align-items-center">
                 <div className="col-md-6 col-8">
                   <div className="logo">
-                    <Link href="/" onClick={() => setMobileOpen(false)}>
+                    <Link href="/" onClick={lockMenusUntilLeave}>
                       <img
                         src="/assets/images/logo/logo-dark.png"
                         className="img-fluid"
@@ -176,7 +246,7 @@ export function SiteHeader() {
                   <ul className="sub-menu">
                     {companyLinks.map((link) => (
                       <li key={link.href}>
-                        <Link href={link.href} onClick={() => setMobileOpen(false)}>
+                        <Link href={link.href} onClick={lockMenusUntilLeave}>
                           <span>{link.label}</span>
                         </Link>
                       </li>
@@ -187,7 +257,7 @@ export function SiteHeader() {
                   <span>Solutions</span>
                   <ul className="sub-menu">
                     <li>
-                      <Link href="/software/aspenview" onClick={() => setMobileOpen(false)}>
+                      <Link href="/software/aspenview" onClick={lockMenusUntilLeave}>
                         <span>AspenView</span>
                       </Link>
                     </li>
@@ -198,7 +268,7 @@ export function SiteHeader() {
                             <span>{link.label}</span>
                           </a>
                         ) : (
-                          <Link href={link.href} onClick={() => setMobileOpen(false)}>
+                          <Link href={link.href} onClick={lockMenusUntilLeave}>
                             <span>{link.label}</span>
                           </Link>
                         )}
@@ -206,14 +276,14 @@ export function SiteHeader() {
                     ))}
                     {detectorLinks.map((link) => (
                       <li key={link.href}>
-                        <Link href={link.href} onClick={() => setMobileOpen(false)}>
+                        <Link href={link.href} onClick={lockMenusUntilLeave}>
                           <span>{link.label}</span>
                         </Link>
                       </li>
                     ))}
                     {veterinaryLinks.slice(0, 3).map((link) => (
                       <li key={link.href}>
-                        <Link href={link.href} onClick={() => setMobileOpen(false)}>
+                        <Link href={link.href} onClick={lockMenusUntilLeave}>
                           <span>{link.label}</span>
                         </Link>
                       </li>
@@ -225,7 +295,7 @@ export function SiteHeader() {
                   <ul className="sub-menu">
                     {contactLinks.map((link) => (
                       <li key={link.href}>
-                        <Link href={link.href} onClick={() => setMobileOpen(false)}>
+                        <Link href={link.href} onClick={lockMenusUntilLeave}>
                           <span>{link.label}</span>
                         </Link>
                       </li>

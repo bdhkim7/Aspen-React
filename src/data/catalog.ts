@@ -66,9 +66,8 @@ export const catalogProducts: CatalogProduct[] = [
     categoryLabel: "X-Ray Systems",
     summary:
       "Straight-arm digital X-ray system for versatile diagnostic imaging (FDA 510(k) Cleared)",
-    href: "/assets/brochure/AspenXDR_brochure.pdf",
+    href: "/products/aspen-xdr",
     image: "/assets/images/projects/XDR_480_300.jpeg",
-    download: true,
   },
   {
     slug: "aspen-fdr",
@@ -77,9 +76,8 @@ export const catalogProducts: CatalogProduct[] = [
     categoryLabel: "X-Ray Systems",
     summary:
       "Our most advanced digital X-ray, covering all radiography needs for clinics with space (FDA 510(k) Cleared)",
-    href: "/assets/brochure/AspenFDR_brochure.pdf",
+    href: "/products/aspen-fdr",
     image: "/assets/images/projects/FDR_480x300.png",
-    download: true,
   },
   {
     slug: "aspen-vet",
@@ -228,6 +226,15 @@ export const productPages: ContentPage[] = [
   { slug: "europa-90", title: "Europa90", description: "Portable X-ray with a 10.1 inch built-in screen." },
   { slug: "europa-85l", title: "Europa85L", description: "Lightest efficient portable X-ray." },
   { slug: "apx-24", title: "APX-24", description: "Compact portable X-ray unit." },
+  { slug: "aspen-xdr", title: "AspenXDR", description: "Straight-arm digital X-ray system." },
+  { slug: "aspen-fdr", title: "AspenFDR", description: "Floor-mounted digital radiography system." },
+  { slug: "a-guard", title: "A-Guard", description: "Protective DR panel carrier." },
+  {
+    slug: "mobile-panel-holder",
+    title: "Mobile Panel Holder",
+    description: "Mobile detector positioning stand.",
+  },
+  { slug: "titan-24", title: "Titan 24", description: "Veterinary imaging solution." },
   { slug: "iodr-1417-gf", title: "iODR1417-GF", description: "Glass-free flat panel detector." },
   { slug: "iodr-1417", title: "iODR1417", description: "iODR series flat panel detector." },
   { slug: "iodr-1717", title: "iODR1717", description: "iODR 17x17 flat panel detector." },
