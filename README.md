@@ -33,7 +33,7 @@ Against a local `next dev` server:
 $env:PLAYWRIGHT_BASE_URL="http://localhost:3000"; npm.cmd run test:e2e
 ```
 
-Every Amplify deploy runs `test:e2e:ci` after `build`. If tests fail, the job stops and **nothing is published**. GitHub Actions also runs the same gate on `main` pushes and PRs.
+Every Amplify deploy installs Chromium system libs (Amazon Linux `dnf`), then runs `test:e2e:ci` after `build`. If tests fail, the job stops and **nothing is published**. GitHub Actions runs the same suite on Ubuntu for PRs and `main` pushes ([Actions → E2E](https://github.com/bdhkim7/Aspen-React/actions/workflows/e2e.yml)).
 
 If PowerShell blocks `npm`, use `npm.cmd` instead or run:
 
@@ -69,8 +69,9 @@ Every push to the connected branch triggers a build and deploy. Use preview bran
 
 ## Migration status
 
-- **Done:** homepage, shared layout, URL redirects, all product/industry/software/about pages, contact API/SES hook
-- **Europa90** uses a native React product template; other products use extracted legacy HTML content
-- **Re-sync from HTML backup:** `npm.cmd run extract-pages` (reads from sibling `Aspen/` folder, writes to `src/content/pages/`)
+- **Done:** homepage, shared layout, URL redirects, all product/industry/software/about pages as React components + typed data modules, contact API/SES hook, Amplify e2e deploy gate
+- Product pages use `ProductPageView` + `src/data/products/*`
+- Industry / leadership / history use `ContentPageView` + `src/data/industries/*` / `src/data/about/*`
+- Original static HTML backup remains in the sibling `Aspen/` folder
 
 Old `.html` URLs redirect to the new routes via `src/data/redirects.ts`.
