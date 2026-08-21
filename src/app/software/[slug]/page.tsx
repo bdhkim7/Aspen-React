@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getLegacyTitle, hasLegacyHtml, LegacyHtmlPage } from "@/components/LegacyHtmlPage";
-import { PlaceholderPage } from "@/components/PlaceholderPage";
+import { ProductPageView } from "@/components/product/ProductPageView";
 import { softwarePages } from "@/data/catalog";
+import { getProductContent } from "@/data/products";
 
 type SoftwarePageProps = {
   params: Promise<{ slug: string }>;
@@ -14,9 +14,12 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: SoftwarePageProps): Promise<Metadata> {
   const { slug } = await params;
+  const content = getProductContent(slug);
   const page = softwarePages.find((item) => item.slug === slug);
-  const legacyTitle = getLegacyTitle(slug);
-  return { title: legacyTitle ?? page?.title ?? "Software" };
+  return {
+    title: content?.title ?? page?.title ?? "Software",
+    description: content?.description ?? page?.description,
+  };
 }
 
 export default async function SoftwarePage({ params }: SoftwarePageProps) {
@@ -24,9 +27,8 @@ export default async function SoftwarePage({ params }: SoftwarePageProps) {
   const page = softwarePages.find((item) => item.slug === slug);
   if (!page) notFound();
 
-  if (hasLegacyHtml(slug)) {
-    return <LegacyHtmlPage slug={slug} />;
-  }
+  const content = getProductContent(slug);
+  if (!content) notFound();
 
-  return <PlaceholderPage title={page.title} description={page.description} />;
+  return <ProductPageView product={content} />;
 }

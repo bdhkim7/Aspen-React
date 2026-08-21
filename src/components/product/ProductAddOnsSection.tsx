@@ -9,8 +9,14 @@ type ProductAddOnsSectionProps = {
 };
 
 export function ProductAddOnsSection({ addOns, specs }: ProductAddOnsSectionProps) {
-  const [activeTab, setActiveTab] = useState<"addons" | "specs">("addons");
+  const hasAddOns = addOns.length > 0;
+  const hasSpecs = specs.length > 0;
+  const [activeTab, setActiveTab] = useState<"addons" | "specs">(
+    hasAddOns ? "addons" : "specs",
+  );
   const [activeModal, setActiveModal] = useState<ProductAddOn | null>(null);
+
+  if (!hasAddOns && !hasSpecs) return null;
 
   return (
     <>
@@ -18,7 +24,15 @@ export function ProductAddOnsSection({ addOns, specs }: ProductAddOnsSectionProp
         <div className="col-lg-12">
           <div className="section-title-wrapper text-center section-space--mb_60">
             <h3 className="section-title">
-              Add-Ons <span className="text-color-primary"> & </span> Specs
+              {hasAddOns && hasSpecs ? (
+                <>
+                  Add-Ons <span className="text-color-primary"> & </span> Specs
+                </>
+              ) : hasAddOns ? (
+                "Add-Ons"
+              ) : (
+                "Specifications"
+              )}
             </h3>
           </div>
         </div>
@@ -26,30 +40,32 @@ export function ProductAddOnsSection({ addOns, specs }: ProductAddOnsSectionProp
 
       <div className="row">
         <div className="col-lg-12 ht-tab-wrap">
-          <div className="text-center">
-            <ul className="nav justify-content-center ht-tab-menu ht-tab-menu_two" role="tablist">
-              <li className={`tab__item nav-item${activeTab === "addons" ? " active" : ""}`}>
-                <button
-                  type="button"
-                  className={`nav-link${activeTab === "addons" ? " active" : ""}`}
-                  onClick={() => setActiveTab("addons")}
-                >
-                  Add-Ons
-                </button>
-              </li>
-              <li className={`tab__item nav-item${activeTab === "specs" ? " active" : ""}`}>
-                <button
-                  type="button"
-                  className={`nav-link${activeTab === "specs" ? " active" : ""}`}
-                  onClick={() => setActiveTab("specs")}
-                >
-                  Specification
-                </button>
-              </li>
-            </ul>
-          </div>
+          {hasAddOns && hasSpecs ? (
+            <div className="text-center">
+              <ul className="nav justify-content-center ht-tab-menu ht-tab-menu_two" role="tablist">
+                <li className={`tab__item nav-item${activeTab === "addons" ? " active" : ""}`}>
+                  <button
+                    type="button"
+                    className={`nav-link${activeTab === "addons" ? " active" : ""}`}
+                    onClick={() => setActiveTab("addons")}
+                  >
+                    Add-Ons
+                  </button>
+                </li>
+                <li className={`tab__item nav-item${activeTab === "specs" ? " active" : ""}`}>
+                  <button
+                    type="button"
+                    className={`nav-link${activeTab === "specs" ? " active" : ""}`}
+                    onClick={() => setActiveTab("specs")}
+                  >
+                    Specification
+                  </button>
+                </li>
+              </ul>
+            </div>
+          ) : null}
 
-          {activeTab === "addons" ? (
+          {activeTab === "addons" && hasAddOns ? (
             <div className="tab-history-wrap section-space--mt_20">
               <div className="container">
                 <div className="row">

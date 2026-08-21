@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getLegacyTitle, hasLegacyHtml, LegacyHtmlPage } from "@/components/LegacyHtmlPage";
-import { PlaceholderPage } from "@/components/PlaceholderPage";
 import { ProductPageView } from "@/components/product/ProductPageView";
 import { productPages } from "@/data/catalog";
 import { getProductContent } from "@/data/products";
@@ -18,9 +16,8 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   const { slug } = await params;
   const content = getProductContent(slug);
   const page = productPages.find((item) => item.slug === slug);
-  const legacyTitle = getLegacyTitle(slug);
   return {
-    title: content?.title ?? legacyTitle ?? page?.title ?? "Product",
+    title: content?.title ?? page?.title ?? "Product",
     description: content?.description ?? page?.description,
   };
 }
@@ -31,13 +28,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   if (!page) notFound();
 
   const content = getProductContent(slug);
-  if (content) {
-    return <ProductPageView product={content} />;
-  }
+  if (!content) notFound();
 
-  if (hasLegacyHtml(slug)) {
-    return <LegacyHtmlPage slug={slug} />;
-  }
-
-  return <PlaceholderPage title={page.title} description={page.description} />;
+  return <ProductPageView product={content} />;
 }

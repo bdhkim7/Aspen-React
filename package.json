@@ -8,7 +8,6 @@
     "start": "next start",
     "start:ci": "next start -p 3001",
     "lint": "eslint",
-    "extract-pages": "node scripts/extract-pages.mjs",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:ci": "cross-env CI=1 PLAYWRIGHT_BASE_URL=http://127.0.0.1:3001 start-server-and-test start:ci http://127.0.0.1:3001 \"playwright test\""

@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
-import { getLegacyTitle, LegacyHtmlPage } from "@/components/LegacyHtmlPage";
+import { notFound } from "next/navigation";
+import { ContentPageView } from "@/components/ContentPageView";
+import { getAboutContent } from "@/data/about";
 
 export const metadata: Metadata = {
-  title: getLegacyTitle("leadership") ?? "Leadership",
+  title: getAboutContent("leadership")?.title ?? "Leadership",
 };
 
 export default function LeadershipPage() {
-  return <LegacyHtmlPage slug="leadership" includeContact={false} />;
+  const content = getAboutContent("leadership");
+  if (!content) notFound();
+  return <ContentPageView page={content} />;
 }

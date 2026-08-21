@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getLegacyTitle, hasLegacyHtml, LegacyHtmlPage } from "@/components/LegacyHtmlPage";
-import { PlaceholderPage } from "@/components/PlaceholderPage";
+import { ContentPageView } from "@/components/ContentPageView";
 import { industryPages } from "@/data/catalog";
+import { getIndustryContent } from "@/data/industries";
 
 type IndustryPageProps = {
   params: Promise<{ slug: string }>;
@@ -14,9 +14,9 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: IndustryPageProps): Promise<Metadata> {
   const { slug } = await params;
+  const content = getIndustryContent(slug);
   const page = industryPages.find((item) => item.slug === slug);
-  const legacyTitle = getLegacyTitle(slug);
-  return { title: legacyTitle ?? page?.title ?? "Industry" };
+  return { title: content?.title ?? page?.title ?? "Industry" };
 }
 
 export default async function IndustryPage({ params }: IndustryPageProps) {
@@ -24,9 +24,8 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
   const page = industryPages.find((item) => item.slug === slug);
   if (!page) notFound();
 
-  if (hasLegacyHtml(slug)) {
-    return <LegacyHtmlPage slug={slug} />;
-  }
+  const content = getIndustryContent(slug);
+  if (!content) notFound();
 
-  return <PlaceholderPage title={page.title} description={page.description} />;
+  return <ContentPageView page={content} />;
 }

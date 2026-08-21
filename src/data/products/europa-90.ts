@@ -17,7 +17,9 @@ export const europa90: ProductPageContent = {
   intro: {
     eyebrow: "Introducing Europa",
     heading: "The control of a full X-ray unit with maximum flexibility",
+    headingHighlight: "maximum flexibility",
     body: "Europa90 delivers dependable radiographic performance in a compact portable generator with the added benefit of instant on-device image viewing. Its space-efficient design and smooth detector/workstation integration make it well-suited for a wide range of clinical environments where mobility and workflow efficiency matter.",
+    bodyHighlight: "instant on-device image viewing.",
     image: "/assets/images/products/Europa90/image_1.png",
     featureCards: [
       {
