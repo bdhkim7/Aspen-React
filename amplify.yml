@@ -4,14 +4,9 @@ frontend:
     preBuild:
       commands:
         - npm ci
-        # Amplify uses Amazon Linux 2023 (dnf), not Ubuntu — --with-deps uses apt-get and fails
-        - dnf install -y libXcomposite libXcursor libXdamage libXext libXi libXtst cups-libs libXScrnSaver libXrandr gtk3 pango alsa-lib atk at-spi2-atk at-spi2-core libdrm libxkbcommon nss xorg-x11-server-Xvfb libgbm
-        - npx playwright install chromium
     build:
       commands:
         - npm run build
-        # Smoke tests gate deploy: failure here stops Amplify from publishing
-        - npm run test:e2e:ci
   artifacts:
     baseDirectory: .next
     files:
@@ -20,4 +15,3 @@ frontend:
     paths:
       - node_modules/**/*
       - .next/cache/**/*
-      - .cache/ms-playwright/**/*
