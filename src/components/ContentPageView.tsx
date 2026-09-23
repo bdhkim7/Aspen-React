@@ -1,4 +1,5 @@
 import { ContactForm } from "@/components/ContactForm";
+import { PageBreadcrumb } from "@/components/PageBreadcrumb";
 import type { ContentBlock, ContentPageData } from "@/types/content";
 
 type ContentPageViewProps = {
@@ -86,23 +87,7 @@ export function ContentPageView({ page }: ContentPageViewProps) {
 
   return (
     <div>
-      <div className="breadcrumb-area">
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <div className="breadcrumb_box text-center">
-                <h1 className="breadcrumb-title">{page.breadcrumb}</h1>
-                <ul className="breadcrumb-list">
-                  <li className="breadcrumb-item">
-                    <a href="/">Home</a>
-                  </li>
-                  <li className="breadcrumb-item active">{page.breadcrumb}</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <PageBreadcrumb title={page.breadcrumb} />
 
       <div className="site-wrapper-reveal">
         <div className="feature-images-wrapper section-space--ptb_100">

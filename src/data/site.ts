@@ -61,6 +61,7 @@ export const contactLinks: NavLink[] = [
 ];
 
 export const industryLinks: NavLink[] = [
+  { href: "/industries/dental", label: "Dental" },
   { href: "/industries/orthopedic", label: "Orthopedic" },
   { href: "/industries/clinics", label: "Clinics & Hospitals" },
   { href: "/industries/mobile", label: "Mobile X-Rays" },

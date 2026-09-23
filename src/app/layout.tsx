@@ -29,11 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <link rel="icon" href="/assets/images/favicon.png" />
         <link rel="stylesheet" href="/assets/css/vendor/bootstrap.min.css" />
         <link rel="stylesheet" href="/assets/css/vendor/fontawesome-all.min.css" />
-        <link rel="stylesheet" href="/assets/css/plugins/swiper.min.css" />
-        <link rel="stylesheet" href="/assets/css/plugins/animate.min.css" />
         <link rel="stylesheet" href="/assets/css/content-slider.css" />
-        <link rel="stylesheet" href="/assets/css/magnific-popup.css" />
-        <link rel="stylesheet" href="/assets/css/themify-icons.css" />
         <link rel="stylesheet" href="/assets/css/custom.css" />
         <link rel="stylesheet" href="/assets/css/style.css" />
       </head>

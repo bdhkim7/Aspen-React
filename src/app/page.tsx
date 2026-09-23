@@ -1,5 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ContactForm } from "@/components/ContactForm";
+import { FunFacts } from "@/components/FunFacts";
 import { ProductGrid } from "@/components/ProductGrid";
 import { applications, heroSlides } from "@/data/catalog";
 
@@ -28,10 +30,14 @@ export default function HomePage() {
                       <div className="col-7 carousel-split__media">
                         <Link href={slide.href}>
                           <div className="processing-hero-images">
-                            <img
+                            <Image
                               className="img-fluid mb-10 responsive-hero-image"
                               src={slide.image}
                               alt={slide.imageAlt}
+                              width={960}
+                              height={640}
+                              priority={index === 0}
+                              style={{ width: "100%", height: "auto" }}
                             />
                           </div>
                         </Link>
@@ -106,10 +112,13 @@ export default function HomePage() {
                     rel="noreferrer"
                   >
                     <div className="single-popup-wrap">
-                      <img
+                      <Image
                         className="img-fluid border-radus-5"
                         src="/assets/images/products/Europa90/product images/Europa90_main_ankle.png"
                         alt="Europa90 imaging"
+                        width={800}
+                        height={560}
+                        style={{ width: "100%", height: "auto" }}
                       />
                       <div className="ht-popup-video video-button">
                         <div className="video-mark">
@@ -134,40 +143,7 @@ export default function HomePage() {
       <div className="site-wrapper-reveal">
         <ProductGrid />
 
-        <div className="fun-fact-wrapper bg-theme-default section-space--pb_30 section-space--pt_60">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-3 col-sm-6">
-                <div className="fun-fact--two text-center">
-                  <h6 className="fun-fact__text">Over</h6>
-                  <div className="fun-fact__count counter">70</div>
-                  <h6 className="fun-fact__text">Returning Distributors</h6>
-                </div>
-              </div>
-              <div className="col-md-3 col-sm-6">
-                <div className="fun-fact--two text-center">
-                  <h6 className="fun-fact__text">Over</h6>
-                  <div className="fun-fact__count counter">1000</div>
-                  <h6 className="fun-fact__text">Finished projects</h6>
-                </div>
-              </div>
-              <div className="col-md-3 col-sm-6">
-                <div className="fun-fact--two text-center">
-                  <h6 className="fun-fact__text">Over</h6>
-                  <div className="fun-fact__count counter">35</div>
-                  <h6 className="fun-fact__text">Skilled Experts</h6>
-                </div>
-              </div>
-              <div className="col-md-3 col-sm-6">
-                <div className="fun-fact--two text-center">
-                  <h6 className="fun-fact__text">Serving over</h6>
-                  <div className="fun-fact__count counter">15</div>
-                  <h6 className="fun-fact__text">Countries</h6>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <FunFacts />
 
         <div className="feature-images-wrapper section-space--ptb_100 applications-section">
           <div className="container">
@@ -191,7 +167,7 @@ export default function HomePage() {
                   className="applications-card single-svg-icon-box"
                 >
                   <div className="applications-card__icon">
-                    <img src={app.icon} alt="" width={64} height={64} />
+                    <Image src={app.icon} alt="" width={64} height={64} />
                   </div>
                   <h5 className="applications-card__title">{app.title}</h5>
                   <p className="applications-card__text">{app.text}</p>

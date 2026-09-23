@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { catalogProducts, type ProductCategory } from "@/data/catalog";
 
 type Filter = "*" | ProductCategory;
@@ -13,17 +14,15 @@ const filters: { id: Filter; label: string }[] = [
   { id: "flat", label: "Flat Panel Detectors" },
 ];
 
+const counts = {
+  "*": catalogProducts.length,
+  handheld: catalogProducts.filter((p) => p.category === "handheld").length,
+  "x-ray": catalogProducts.filter((p) => p.category === "x-ray").length,
+  flat: catalogProducts.filter((p) => p.category === "flat").length,
+} as const;
+
 export function ProductGrid() {
   const [filter, setFilter] = useState<Filter>("*");
-
-  const counts = useMemo(() => {
-    return {
-      "*": catalogProducts.length,
-      handheld: catalogProducts.filter((p) => p.category === "handheld").length,
-      "x-ray": catalogProducts.filter((p) => p.category === "x-ray").length,
-      flat: catalogProducts.filter((p) => p.category === "flat").length,
-    };
-  }, []);
 
   const visible =
     filter === "*"
@@ -63,7 +62,14 @@ export function ProductGrid() {
               const body = (
                 <div className="projects-image-box">
                   <div className="projects-image">
-                    <img className="img-fluid" src={product.image} alt={product.name} />
+                    <Image
+                      className="img-fluid"
+                      src={product.image}
+                      alt={product.name}
+                      width={480}
+                      height={300}
+                      style={{ width: "100%", height: "auto" }}
+                    />
                   </div>
                   <div className="content">
                     <h6 className="heading">{product.name}</h6>

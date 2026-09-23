@@ -221,38 +221,6 @@ export type ContentPage = {
   description: string;
 };
 
-export const productPages: ContentPage[] = [
-  { slug: "europa-85", title: "Europa85", description: "Balanced handheld portable X-ray." },
-  { slug: "europa-90", title: "Europa90", description: "Portable X-ray with a 10.1 inch built-in screen." },
-  { slug: "europa-85l", title: "Europa85L", description: "Lightest efficient portable X-ray." },
-  { slug: "apx-24", title: "APX-24", description: "Compact portable X-ray unit." },
-  { slug: "aspen-xdr", title: "AspenXDR", description: "Straight-arm digital X-ray system." },
-  { slug: "aspen-fdr", title: "AspenFDR", description: "Floor-mounted digital radiography system." },
-  { slug: "a-guard", title: "A-Guard", description: "Protective DR panel carrier." },
-  {
-    slug: "mobile-panel-holder",
-    title: "Mobile Panel Holder",
-    description: "Mobile detector positioning stand.",
-  },
-  { slug: "titan-24", title: "Titan 24", description: "Veterinary imaging solution." },
-  { slug: "iodr-1417-gf", title: "iODR1417-GF", description: "Glass-free flat panel detector." },
-  { slug: "iodr-1417", title: "iODR1417", description: "iODR series flat panel detector." },
-  { slug: "iodr-1717", title: "iODR1717", description: "iODR 17x17 flat panel detector." },
-  { slug: "aspen-vet", title: "AspenVet Table", description: "Digital X-ray for veterinary." },
-  { slug: "laica-85l", title: "Laica85L", description: "Lightweight veterinary portable X-ray." },
-  { slug: "laica-90", title: "Laica 90", description: "Powerful portable X-ray for veterinary care." },
-  { slug: "fdr-hd", title: "AspenFDR H.D.", description: "Digital radiography system (legacy page)." },
-  { slug: "exprimer", title: "Exprimer", description: "Ultra slim uni-body detector." },
-  { slug: "vieworks-panel", title: "Vieworks Panel", description: "Flat panel detector." },
-  { slug: "ws80a", title: "WS80A", description: "Legacy product page." },
-  { slug: "rs85", title: "RS85", description: "Legacy product page." },
-  { slug: "rs80a", title: "RS80A", description: "Legacy product page." },
-  { slug: "rosem", title: "Rosem", description: "Legacy product page." },
-  { slug: "hs70a", title: "HS70A", description: "Legacy product page." },
-  { slug: "hera-w10", title: "HERA-W10", description: "Legacy product page." },
-  { slug: "air-touch", title: "AiR-Touch", description: "Legacy product page." },
-];
-
 export const industryPages: ContentPage[] = [
   { slug: "dental", title: "Dental", description: "Imaging solutions for dental practices." },
   { slug: "orthopedic", title: "Orthopedic", description: "Imaging solutions for orthopedic care." },
@@ -261,9 +229,4 @@ export const industryPages: ContentPage[] = [
   { slug: "military", title: "Military", description: "Rugged portable imaging for demanding environments." },
   { slug: "urgent-care", title: "Urgent Care", description: "X-ray solutions for urgent care centers." },
   { slug: "veterinary", title: "Veterinary", description: "Imaging for veterinary practices." },
-];
-
-export const softwarePages: ContentPage[] = [
-  { slug: "aspenview", title: "AspenView - English", description: "Acquisition and viewing software." },
-  { slug: "aspenview-es", title: "AspenView - Spanish", description: "Software de adquisición y visualización." },
 ];

@@ -147,7 +147,83 @@ body {
   transition: none !important;
 }
 
-/* Consistent product media framing */
+/* Shared product hero image frame — same size on every product page */
+.preview-hero-area.infotechno-bg {
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
+  /* Paint banner on a dedicated lower layer so product content can stack above it */
+  background-image: none !important;
+}
+
+.preview-hero-area.infotechno-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: url("/assets/images/banners/medicalBanner.jpg") no-repeat center center;
+  background-size: cover;
+}
+
+.preview-hero-area .container {
+  position: relative;
+  z-index: 2;
+}
+
+.preview-hero-area .processing-hero-text {
+  position: relative;
+  z-index: 2;
+}
+
+.product-hero-media {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Keep product clear of the banner’s glossy top/bottom tubes */
+  padding: 28px 12px;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.product-hero-media img {
+  position: relative;
+  z-index: 5;
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  /* Knock out baked-in white backgrounds for a seamless cutout on the hero banner */
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 10px 24px rgba(15, 23, 42, 0.14));
+}
+
+/* Keep page content below the hero from sliding under the banner layer */
+.preview-hero-area + section {
+  position: relative;
+  z-index: 2;
+}
+
+@media only screen and (max-width: 991px) {
+  .product-hero-media {
+    height: 300px;
+    margin-top: 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .product-hero-media {
+    height: 240px;
+  }
+}
+
+/* Consistent product media framing (intro / highlights) */
 .product-media {
   width: 100%;
   display: flex;
@@ -165,10 +241,12 @@ body {
 
 .product-media--contain {
   min-height: 300px;
-  padding: 2rem 1.75rem;
-  background: #ffffff;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+  padding: 1.5rem 1rem;
+  /* Transparent frame so white product cutouts can blend out seamlessly */
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
 }
 
 .product-media--contain img {
@@ -176,6 +254,8 @@ body {
   width: auto;
   max-width: 100%;
   object-fit: contain;
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 8px 20px rgba(15, 23, 42, 0.12));
 }
 
 .product-media--cover {
@@ -195,38 +275,12 @@ body {
   object-position: center;
 }
 
-.product-media--hero {
-  min-height: 340px;
-}
-
-.product-media--hero.product-media--contain img {
-  max-height: 400px;
-}
-
 .product-media--intro.product-media--contain img {
   max-height: 380px;
 }
 
 .product-media--highlight {
   min-height: 280px;
-}
-
-/* Hero sits on the existing gray band — avoid a second white card */
-.preview-hero-area .product-media--contain {
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  padding: 0.5rem 0;
-  min-height: 0;
-}
-
-.preview-hero-area .product-media--contain img {
-  mix-blend-mode: multiply;
-}
-
-.preview-hero-area .product-media--cover {
-  border: none;
-  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
 }
 
 .product-feature-icon-fallback {

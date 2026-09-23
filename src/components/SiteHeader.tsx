@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import {
@@ -79,10 +80,14 @@ export function SiteHeader() {
                 <div className="header position-relative">
                   <div className="header__logo">
                     <Link href="/" onClick={lockMenusUntilLeave}>
-                      <img
+                      <Image
                         src="/assets/images/logo/Aspen-Imaging_Logo_Full_Stacked_Gray.png"
                         className="img-fluid responsive-logo"
                         alt="Aspen Imaging"
+                        width={200}
+                        height={72}
+                        priority
+                        style={{ width: "auto", height: "auto", maxHeight: 72 }}
                       />
                     </Link>
                   </div>
@@ -125,9 +130,9 @@ export function SiteHeader() {
                           className="has-children"
                           onPointerEnter={() => setMenusLocked(false)}
                         >
-                          <a href="#products">
+                          <Link href="/#products" onClick={lockMenusUntilLeave}>
                             <span>Solutions</span>
-                          </a>
+                          </Link>
                           <ul className="megamenu megamenu--mega">
                             <li>
                               <h2 className="page-list-title">Flat Panel Detectors</h2>
@@ -217,10 +222,13 @@ export function SiteHeader() {
                 <div className="col-md-6 col-8">
                   <div className="logo">
                     <Link href="/" onClick={lockMenusUntilLeave}>
-                      <img
+                      <Image
                         src="/assets/images/logo/logo-dark.png"
                         className="img-fluid"
                         alt="Aspen Imaging"
+                        width={160}
+                        height={48}
+                        style={{ width: "auto", height: "auto", maxHeight: 48 }}
                       />
                     </Link>
                   </div>
@@ -281,7 +289,14 @@ export function SiteHeader() {
                         </Link>
                       </li>
                     ))}
-                    {veterinaryLinks.slice(0, 3).map((link) => (
+                    {accessoryLinks.map((link) => (
+                      <li key={link.href}>
+                        <Link href={link.href} onClick={lockMenusUntilLeave}>
+                          <span>{link.label}</span>
+                        </Link>
+                      </li>
+                    ))}
+                    {veterinaryLinks.map((link) => (
                       <li key={link.href}>
                         <Link href={link.href} onClick={lockMenusUntilLeave}>
                           <span>{link.label}</span>

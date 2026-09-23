@@ -1,28 +1,13 @@
-import Link from "next/link";
+import Image from "next/image";
 import { ContactForm } from "@/components/ContactForm";
 import { FaqAccordion } from "@/components/FaqAccordion";
+import { PageBreadcrumb } from "@/components/PageBreadcrumb";
 import { faqSections } from "@/data/faqs";
 
 export function FaqsPageView() {
   return (
     <>
-      <div className="breadcrumb-area">
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <div className="breadcrumb_box text-center">
-                <h2 className="breadcrumb-title">FAQs</h2>
-                <ul className="breadcrumb-list">
-                  <li className="breadcrumb-item">
-                    <Link href="/">Home</Link>
-                  </li>
-                  <li className="breadcrumb-item active">FAQs</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <PageBreadcrumb title="FAQs" headingLevel="h2" />
 
       <div className="site-wrapper-reveal">
         <div className="accordion-wrapper section-space--ptb_80 border-top">
@@ -51,10 +36,13 @@ export function FaqsPageView() {
                     rel="noreferrer"
                   >
                     <div className="single-popup-wrap">
-                      <img
+                      <Image
                         className="img-fluid border-radus-5"
                         src="/assets/images/bg/faqs-video-poster.jpg"
                         alt="Aspen Imaging overview video"
+                        width={640}
+                        height={360}
+                        style={{ width: "100%", height: "auto" }}
                       />
                       <div className="ht-popup-video video-button">
                         <div className="video-mark">

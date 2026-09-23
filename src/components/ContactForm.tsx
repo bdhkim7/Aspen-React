@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
-import { countries, inquiryTypes } from "@/data/site";
+import { company, countries, inquiryTypes } from "@/data/site";
 
 type ContactFormProps = {
   heading?: string;
@@ -127,23 +127,20 @@ export function ContactForm({
                 {showSupportPhone ? "All Inquiries" : "Give Us A Call"}
               </h6>
               <h3 className="call-us">
-                <a href="tel:+12142570113">(+1) 214-257-0113</a>
+                <a href={company.phoneHref}>{company.phoneDisplay}</a>
               </h3>
               {showSupportPhone ? (
                 <>
                   <h6 className="heading font-weight--reguler">Technical Support</h6>
                   <h3 className="call-us">
-                    <a href="tel:+5215513360895">(+52) 1-55-1336-0895</a>
+                    <a href={company.supportPhoneHref}>{company.supportPhoneDisplay}</a>
                   </h3>
                 </>
               ) : (
                 <div className="text">We are happy to answer any questions about our solutions</div>
               )}
               <div className="location-button mt-20">
-                <a
-                  href="https://goo.gl/maps/rc6Mj1xm7Bc8ZQ237"
-                  className="location-text-button"
-                >
+                <a href={company.mapsUrl} className="location-text-button">
                   <span className="button-icon" />
                   <span className="button-text">View on Google map</span>
                 </a>

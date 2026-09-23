@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { company, footerSolutionLinks, industryLinks } from "@/data/site";
 
@@ -11,10 +12,12 @@ export function SiteFooter() {
           <div className="row footer-widget-wrapper">
             <div className="col-lg-3 col-md-6 col-sm-6 col-12 footer-widget">
               <div className="footer-widget__logo mb-30">
-                <img
+                <Image
                   src="/assets/images/logo/dark-logo-160x48.png"
                   className="img-fluid"
                   alt={company.name}
+                  width={160}
+                  height={48}
                 />
               </div>
               <ul className="footer-widget__list">

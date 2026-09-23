@@ -51,8 +51,9 @@ export type ProductPageContent = {
     tagline: string;
     name: string;
     image: string;
+    /** @deprecated Ignored — hero uses a shared fixed-size container. */
     imageStyle?: CSSProperties;
-    /** How the hero image should sit in its column. */
+    /** @deprecated Ignored — hero uses a shared fixed-size container. */
     imageFit?: "contain" | "cover";
   };
   intro: {

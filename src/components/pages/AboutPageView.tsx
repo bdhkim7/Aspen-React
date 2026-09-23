@@ -1,23 +1,8 @@
-import Link from "next/link";
+import Image from "next/image";
+import { CertificationsSection } from "@/components/CertificationsSection";
 import { ContactForm } from "@/components/ContactForm";
-
-const certifications = [
-  {
-    title: "FDA",
-    image: "/assets/images/accreditation/fda.png",
-    text: "FDA is a federal agency of the United States Department of Health and Human Services. The systems provided for the U.S market have been registered and hold an FDA 510(K) when applicable.",
-  },
-  {
-    title: "Cofepris",
-    image: "/assets/images/accreditation/cofepris.png",
-    text: "Cofepris is a regulatory body of the Mexican government that is responsible for regulating a variety of health related topics in Mexico, including medical devices.",
-  },
-  {
-    title: "ISO 13485",
-    image: "/assets/images/accreditation/iso.png",
-    text: "ISO 13485 is a quality management system for the design and manufacture of medical devices. We have been assessed and found in compliance with ISO 13485:2016. As a result, our facility proudly has this certificate hanging in our front lobby.",
-  },
-];
+import { FunFacts } from "@/components/FunFacts";
+import { PageBreadcrumb } from "@/components/PageBreadcrumb";
 
 const values = [
   {
@@ -45,23 +30,7 @@ const values = [
 export function AboutPageView() {
   return (
     <div className="site-wrapper-reveal">
-      <div className="about-banner-wrap banner-space about-us-bg">
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <div className="breadcrumb_box text-center">
-                <h1 className="breadcrumb-title">About us</h1>
-                <ul className="breadcrumb-list">
-                  <li className="breadcrumb-item">
-                    <Link href="/">Home</Link>
-                  </li>
-                  <li className="breadcrumb-item active">About us</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <PageBreadcrumb title="About us" variant="about" />
 
       <div className="feature-large-images-wrapper section-space--ptb_100">
         <div className="container">
@@ -79,7 +48,14 @@ export function AboutPageView() {
           <div className="cybersecurity-about-box section-space--pb_70">
             <div className="row">
               <div className="col-lg-6">
-                <img src="/assets/images/addons/map.png" className="img-fluid" alt="Global reach" />
+                <Image
+                  src="/assets/images/addons/map.png"
+                  className="img-fluid"
+                  alt="Global reach"
+                  width={640}
+                  height={420}
+                  style={{ width: "100%", height: "auto" }}
+                />
               </div>
               <div className="col-lg-5 offset-lg-1">
                 <div className="cybersecurity-about-text">
@@ -111,10 +87,12 @@ export function AboutPageView() {
                       <div className="image-box-wrap">
                         <div className="box-image">
                           <div className="default-image">
-                            <img
+                            <Image
                               className="img-fulid"
                               src="/assets/images/icons/mitech-box-image-style-06-image-01-120x120.png"
                               alt=""
+                              width={120}
+                              height={120}
                             />
                           </div>
                         </div>
@@ -133,10 +111,12 @@ export function AboutPageView() {
                       <div className="image-box-wrap">
                         <div className="box-image">
                           <div className="default-image">
-                            <img
+                            <Image
                               className="img-fulid"
                               src="/assets/images/icons/mitech-box-image-style-06-image-02-120x120.png"
                               alt=""
+                              width={120}
+                              height={120}
                             />
                           </div>
                         </div>
@@ -161,40 +141,7 @@ export function AboutPageView() {
         </div>
       </div>
 
-      <div className="feature-large-images-wrapper bg-gray section-space--ptb_100">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="section-title-wrap text-center section-space--mb_30">
-                <h6 className="section-sub-title mb-20">Our Standards</h6>
-                <h3 className="heading">
-                  Our <span className="text-color-primary"> Certifications and Accreditations</span>
-                </h3>
-              </div>
-            </div>
-          </div>
-
-          <div className="row row--35">
-            {certifications.map((cert) => (
-              <div key={cert.title} className="col-lg-4 col-md-6 mt-30">
-                <div className="box-large-image__box">
-                  <div className="box-large-image__midea">
-                    <div className="images-midea">
-                      <img src={cert.image} className="img-fluid" alt={cert.title} style={{ height: 300 }} />
-                      <div className="heading-wrap">
-                        <h5 className="heading">{cert.title}</h5>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="box-large-image__content mt-30 text-center">
-                    <p>{cert.text}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      <CertificationsSection />
 
       <div className="about-delivering-wrapper">
         <div className="container">
@@ -238,26 +185,7 @@ export function AboutPageView() {
         </div>
       </div>
 
-      <div className="fun-fact-wrapper bg-theme-default section-space--pb_30 section-space--pt_60">
-        <div className="container">
-          <div className="row">
-            {[
-              ["70", "Returning Distributors"],
-              ["1000", "Finished projects"],
-              ["35", "Skilled Experts"],
-              ["15", "Countries"],
-            ].map(([count, label], index) => (
-              <div key={label} className="col-md-3 col-sm-6">
-                <div className="fun-fact--two text-center">
-                  <h6 className="fun-fact__text">{index === 3 ? "Serving over" : "Over"}</h6>
-                  <div className="fun-fact__count counter">{count}</div>
-                  <h6 className="fun-fact__text">{label}</h6>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      <FunFacts />
 
       <ContactForm />
     </div>

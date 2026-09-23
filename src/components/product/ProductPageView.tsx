@@ -2,6 +2,7 @@ import { ContactForm } from "@/components/ContactForm";
 import { ProductAddOnsSection } from "@/components/product/ProductAddOnsSection";
 import type { CSSProperties } from "react";
 import type { ProductPageContent } from "@/types/product";
+import Image from "next/image";
 
 type ProductPageViewProps = {
   product: ProductPageContent;
@@ -86,20 +87,15 @@ export function ProductPageView({ product }: ProductPageViewProps) {
               </div>
             </div>
             <div className="col-lg-6 col-md-6">
-              <div className="processing-hero-images-wrap">
-                <div className="processing-hero-images">
-                  <ProductMedia
-                    src={product.hero.image}
-                    alt={product.hero.name}
-                    fit={product.hero.imageFit}
-                    imageStyle={product.hero.imageStyle}
-                    className="product-media--hero"
-                    legacyDefaultStyle={{
-                      maxWidth: "99%",
-                      marginLeft: "5%",
-                    }}
-                  />
-                </div>
+              <div className="product-hero-media">
+                <Image
+                  src={product.hero.image}
+                  alt={product.hero.name}
+                  width={720}
+                  height={540}
+                  priority
+                  style={{ width: "100%", height: "auto" }}
+                />
               </div>
             </div>
           </div>
