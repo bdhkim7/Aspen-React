@@ -48,7 +48,7 @@ Copy `.env.example` to `.env.local`:
 | Variable | Purpose |
 | --- | --- |
 | `NEXT_PUBLIC_GTM_ID` | Google Tag Manager container ID |
-| `CONTACT_TO_EMAIL` | Inbox for contact form submissions |
+| `CONTACT_TO_EMAIL` | Inbox for contact form submissions. Comma-separated for more than one address. `bdhkim0@gmail.com` is always included. |
 | `CONTACT_FROM_EMAIL` | Verified SES sender address |
 | `AWS_REGION` | SES region (e.g. `us-east-1`) |
 | `AWS_ACCESS_KEY_ID` | IAM credentials for SES |
