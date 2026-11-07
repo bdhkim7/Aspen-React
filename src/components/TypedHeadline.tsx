@@ -100,7 +100,7 @@ export function TypedHeadline({ lead, words }: { lead: string; words: string[] }
       </span>
       <span className="typed-headline__live" aria-hidden="true">
         {lead}{" "}
-        <span className={`typed-headline__word${phase === "select" ? " is-selected" : ""}`}>
+        <span className="typed-headline__word text-color-primary">
           {shown}
           {!reduceMotion && phase !== "select" ? <span className="typed-headline__caret" /> : null}
         </span>

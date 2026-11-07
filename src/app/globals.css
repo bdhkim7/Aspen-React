@@ -856,15 +856,12 @@ body .about-page .fun-fact--two .fun-fact__text {
   visibility: hidden;
 }
 
-.typed-headline__word {
+body .typed-text-wrap h4 .typed-headline__word,
+body .typed-text-wrap h4 .typed-headline__word.is-selected {
   color: #086ad8;
+  background: transparent;
   font-style: normal;
   transition: none;
-}
-
-.typed-headline__word.is-selected {
-  background: #aebcb9;
-  color: #0d0d0d;
 }
 
 .typed-headline__caret {
