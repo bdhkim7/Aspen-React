@@ -199,7 +199,7 @@ export default async function HomePage() {
               <div className="row">
                 <div className="col-lg-8 ml-auto mr-auto">
                   <div className="typed-text-wrap">
-                    <TypedHeadline text={t.home.connect} />
+                    <TypedHeadline lead={t.home.connectLead} words={t.home.connectWords} />
                   </div>
                 </div>
               </div>

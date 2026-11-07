@@ -35,7 +35,8 @@ export type Dictionary = {
     applicationsLabel: string;
     seeIndustry: string;
     scrollHint: string;
-    connect: string;
+    connectLead: string;
+    connectWords: string[];
     applications: { title: string; text: string }[];
   };
   catalog: {
@@ -218,7 +219,8 @@ const en: Dictionary = {
     applicationsLabel: "Applications we serve",
     seeIndustry: "See Industry Details",
     scrollHint: "Scroll to explore",
-    connect: "Connect with us today and exceed your business demands",
+    connectLead: "Connect with us today and exceed your",
+    connectWords: ["business demands", "client satisfaction", "growth potential"],
     applications: [
       {
         title: "Veterinary",
@@ -524,7 +526,12 @@ const es: Dictionary = {
     applicationsLabel: "Aplicaciones que atendemos",
     seeIndustry: "Ver detalles de la industria",
     scrollHint: "Deslice para explorar",
-    connect: "Conéctese con nosotros hoy y supere las exigencias de su negocio",
+    connectLead: "Conéctese con nosotros hoy y supere",
+    connectWords: [
+      "las exigencias de su negocio",
+      "la satisfacción de sus clientes",
+      "su potencial de crecimiento",
+    ],
     applications: [
       {
         title: "Veterinaria",
