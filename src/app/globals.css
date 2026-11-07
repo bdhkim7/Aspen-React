@@ -242,3 +242,19 @@ body {
   font-size: 1.25rem;
   margin-bottom: 0.75rem;
 }
+
+/* About: Vision and Core cards share one height */
+.feature-images__six > .row > [class*="col-"] {
+  display: flex;
+}
+
+.feature-images__six .ht-box-images.style-06 {
+  display: flex;
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+.feature-images__six .ht-box-images.style-06 .image-box-wrap {
+  width: 100%;
+  height: 100%;
+}
