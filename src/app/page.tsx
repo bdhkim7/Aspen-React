@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ContactForm } from "@/components/ContactForm";
 import { FunFacts } from "@/components/FunFacts";
+import { TypedHeadline } from "@/components/TypedHeadline";
 import { LocaleLink } from "@/components/LocaleLink";
 import { ProductGrid } from "@/components/ProductGrid";
 import { applications, heroSlides } from "@/data/catalog";
@@ -198,9 +199,7 @@ export default async function HomePage() {
               <div className="row">
                 <div className="col-lg-8 ml-auto mr-auto">
                   <div className="typed-text-wrap">
-                    <h4 className="cd-headline letters type">
-                      <span>{t.home.connect}</span>
-                    </h4>
+                    <TypedHeadline text={t.home.connect} />
                   </div>
                 </div>
               </div>

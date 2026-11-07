@@ -841,3 +841,39 @@ body .about-page .fun-fact--two .fun-fact__text {
     border-left: 0;
   }
 }
+
+.typed-text-wrap h4.typed-headline {
+  display: grid;
+  justify-items: stretch;
+}
+
+.typed-headline__sizer,
+.typed-headline__live {
+  grid-area: 1 / 1;
+}
+
+.typed-headline__sizer {
+  visibility: hidden;
+}
+
+.typed-headline__caret {
+  display: inline-block;
+  width: 2px;
+  height: 0.85em;
+  margin-left: 3px;
+  background: currentColor;
+  vertical-align: -0.08em;
+  animation: typed-caret-blink 0.9s steps(1) infinite;
+}
+
+@keyframes typed-caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typed-headline__caret {
+    display: none;
+  }
+}
