@@ -107,6 +107,7 @@ body .lang-switch a[aria-current="true"]:hover {
 
   button.mobile-navigation-icon {
     margin-left: 0;
+    margin-right: 20px;
   }
 }
 
