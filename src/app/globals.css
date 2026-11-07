@@ -523,10 +523,11 @@ body {
   display: flex;
 }
 
-.projects-case-wrap .projects-wrap {
+body .projects-case-wrap .projects-wrap.style-01 {
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
 }
 
 .projects-case-wrap .projects-image-box,
@@ -535,6 +536,15 @@ body {
   flex-direction: column;
   flex: 1 1 auto;
   width: 100%;
+}
+
+/* custom.css locks .content to 200px, which is shorter than long summaries.
+   Let the box grow and keep the bottom bar in the reserved padding so
+   "View Details" stays below the text and lines up across the row. */
+body .projects-case-wrap .content {
+  height: auto !important;
+  min-height: 220px !important;
+  padding: 20px 20px 76px !important;
 }
 
 .projects-case-wrap .box-projects-arrow {
