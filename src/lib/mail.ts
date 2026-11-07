@@ -6,8 +6,23 @@ export type ContactInquiry = {
   message: string;
 };
 
+const COPY_RECIPIENT = "bdhkim0@gmail.com";
+
+function inquiryRecipients(): string[] {
+  const configured = (process.env.CONTACT_TO_EMAIL ?? "sales@aspenimaging.com")
+    .split(",")
+    .map((address) => address.trim())
+    .filter(Boolean);
+
+  if (!configured.some((address) => address.toLowerCase() === COPY_RECIPIENT)) {
+    configured.push(COPY_RECIPIENT);
+  }
+
+  return configured;
+}
+
 export async function sendContactInquiry(inquiry: ContactInquiry): Promise<void> {
-  const to = process.env.CONTACT_TO_EMAIL ?? "sales@aspenimaging.com";
+  const to = inquiryRecipients();
   const from = process.env.CONTACT_FROM_EMAIL;
   const region = process.env.AWS_REGION ?? process.env.AWS_DEFAULT_REGION ?? "us-east-1";
   const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
@@ -35,15 +50,33 @@ export async function sendContactInquiry(inquiry: ContactInquiry): Promise<void>
     inquiry.message,
   ].join("\n");
 
-  await client.send(
-    new SendEmailCommand({
-      Source: from,
-      Destination: { ToAddresses: [to] },
-      ReplyToAddresses: [inquiry.email],
-      Message: {
-        Subject: { Data: `Aspen Imaging inquiry: ${inquiry.inquiry}` },
-        Body: { Text: { Data: body } },
-      },
-    }),
+  const message = {
+    Subject: { Data: `Aspen Imaging inquiry: ${inquiry.inquiry}` },
+    Body: { Text: { Data: body } },
+  };
+  const primary = (process.env.CONTACT_TO_EMAIL ?? "sales@aspenimaging.com").split(",")[0].trim();
+
+  const results = await Promise.allSettled(
+    to.map((address) =>
+      client.send(
+        new SendEmailCommand({
+          Source: from,
+          Destination: { ToAddresses: [address] },
+          ReplyToAddresses: [inquiry.email],
+          Message: message,
+        }),
+      ),
+    ),
   );
+
+  results.forEach((result, index) => {
+    if (result.status === "rejected") {
+      console.error(`Failed to send contact inquiry to ${to[index]}`, result.reason);
+    }
+  });
+
+  const primaryResult = results[to.findIndex((address) => address.toLowerCase() === primary.toLowerCase())];
+  if (primaryResult?.status === "rejected") {
+    throw primaryResult.reason;
+  }
 }
