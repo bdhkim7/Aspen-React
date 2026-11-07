@@ -20,7 +20,6 @@ export type NavLink = { href: string; label: string; external?: boolean };
 
 export const companyLinks: NavLink[] = [
   { href: "/about-us", label: "About us" },
-  { href: "/commitment", label: "Commitment to Quality" },
 ];
 
 export const detectorLinks: NavLink[] = [

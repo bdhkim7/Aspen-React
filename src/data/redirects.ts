@@ -7,7 +7,9 @@ export type HtmlRedirect = {
 export const htmlRedirects: HtmlRedirect[] = [
   { source: "/index.html", destination: "/" },
   { source: "/aboutus.html", destination: "/about-us" },
-  { source: "/commitment.html", destination: "/commitment" },
+  { source: "/commitment.html", destination: "/about-us#quality" },
+  { source: "/commitment", destination: "/about-us#quality" },
+  { source: "/es/commitment", destination: "/es/about-us#quality" },
   { source: "/contact-us.html", destination: "/contact-us" },
   { source: "/faqs.html", destination: "/faqs" },
   { source: "/thankyou.html", destination: "/thank-you" },

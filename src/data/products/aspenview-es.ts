@@ -20,6 +20,7 @@ export const aspenviewEs: ProductPageContent = {
   highlights: {
     eyebrow: "AspenView",
     heading: "Especificaciones Funcionales y Técnicas",
+    flush: true,
     items: [
       {
         title: "Registro de Pacientes y Gestión de Exámenes",

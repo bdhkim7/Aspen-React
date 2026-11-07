@@ -14,6 +14,7 @@ export const aspenVet: ProductPageContent = {
     heading: "Product Highlight",
     body: "The perfect station for your four-legged patients: AspenVet",
     image: "/assets/images/products/AspenVet/AspenVet.png",
+    imageFit: "contain",
   },
   video: {
     title: "Product Highlight",

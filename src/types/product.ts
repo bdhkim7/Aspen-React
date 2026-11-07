@@ -13,6 +13,8 @@ export type ProductHighlight = {
   bullets?: string[];
   body?: string;
   image: string;
+  /** When set, these photos fill the highlight column (one full-bleed, or several side by side). */
+  images?: string[];
   imageFirst?: boolean;
   imageStyle?: CSSProperties;
   imageWrapperStyle?: CSSProperties;
@@ -72,6 +74,8 @@ export type ProductPageContent = {
     eyebrow: string;
     heading: string;
     items: ProductHighlight[];
+    /** Stack each feature row directly against the next one. */
+    flush?: boolean;
   };
   /** Compact icon title row (e.g. Europa85 key features). */
   keyFeatures?: {

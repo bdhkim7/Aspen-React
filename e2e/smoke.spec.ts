@@ -47,9 +47,10 @@ test.describe("core pages", () => {
     ).toBeVisible();
   });
 
-  test("commitment and thank-you pages load", async ({ page }) => {
+  test("commitment folds into about us, and thank-you loads", async ({ page }) => {
     await page.goto("/commitment");
-    await expect(page).toHaveTitle(/Commitment|Aspen/i);
+    await expect(page).toHaveURL(/\/about-us#quality$/);
+    await expect(page.getByRole("heading", { name: /Our Mission/i })).toBeVisible();
 
     await page.goto("/thank-you");
     await expect(page).toHaveTitle(/Thank|Aspen/i);

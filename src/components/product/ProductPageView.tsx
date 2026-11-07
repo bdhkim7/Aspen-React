@@ -1,5 +1,7 @@
 import { ContactForm } from "@/components/ContactForm";
 import { ProductAddOnsSection } from "@/components/product/ProductAddOnsSection";
+import { getDictionary } from "@/i18n/dictionary";
+import { getLocale } from "@/i18n/get-locale";
 import type { CSSProperties } from "react";
 import type { ProductPageContent } from "@/types/product";
 import Image from "next/image";
@@ -67,7 +69,8 @@ function ProductMedia({
   );
 }
 
-export function ProductPageView({ product }: ProductPageViewProps) {
+export async function ProductPageView({ product }: ProductPageViewProps) {
+  const t = getDictionary(await getLocale()).product;
   const showDiscover =
     Boolean(product.inTheBox) ||
     Boolean(product.addOns?.length) ||
@@ -243,23 +246,48 @@ export function ProductPageView({ product }: ProductPageViewProps) {
                   {item.body ? <p>{item.body}</p> : null}
                 </div>
               );
+              const fillImages = item.images?.length ? item.images : null;
               const imageCol = (
                 <div
                   className="col-lg-6 col-md-6 noLRPadding"
                   style={item.imageWrapperStyle}
                 >
-                  <ProductMedia
-                    src={item.image}
-                    alt={item.title}
-                    fit={item.imageFit}
-                    imageStyle={item.imageStyle}
-                    className="product-media--highlight"
-                  />
+                  {fillImages && fillImages.length > 1 ? (
+                    <div className="product-highlight-pair">
+                      {fillImages.map((src) => (
+                        <img
+                          key={src}
+                          src={src}
+                          alt={item.title}
+                          className="product-highlight-fill"
+                        />
+                      ))}
+                    </div>
+                  ) : fillImages ? (
+                    <img
+                      src={fillImages[0]}
+                      alt={item.title}
+                      className="product-highlight-fill"
+                    />
+                  ) : (
+                    <ProductMedia
+                      src={item.image}
+                      alt={item.title}
+                      fit={item.imageFit}
+                      imageStyle={item.imageStyle}
+                      className="product-media--highlight"
+                    />
+                  )}
                 </div>
               );
 
               return (
-                <div key={item.title} className="row section-space--mt_20 align-items-center">
+                <div
+                  key={item.title}
+                  className={`row align-items-stretch${
+                    product.highlights?.flush ? "" : " section-space--mt_40"
+                  }`}
+                >
                   {item.imageFirst ? (
                     <>
                       {imageCol}
@@ -339,10 +367,11 @@ export function ProductPageView({ product }: ProductPageViewProps) {
                 <div className="row">
                   <div className="col-lg-12">
                     <div className="section-title-wrapper text-center">
-                      <h6 className="section-sub-title mb-20">Discover More</h6>
+                      <h6 className="section-sub-title mb-20">{t.discover}</h6>
                       <h3 className="section-title">
-                        What&apos;s <span className="text-color-primary"> Inside </span>{" "}
-                        the Box
+                        {t.insideBefore}
+                        <span className="text-color-primary">{t.insideHighlight}</span>
+                        {t.insideAfter}
                       </h3>
                     </div>
                   </div>
@@ -354,7 +383,7 @@ export function ProductPageView({ product }: ProductPageViewProps) {
                             className="d-block img-fluid"
                             style={{ margin: "auto" }}
                             src={product.inTheBox.image}
-                            alt="Included accessories"
+                            alt={t.accessoriesAlt}
                           />
                         </div>
                         <div className="col-lg-6">
@@ -362,7 +391,7 @@ export function ProductPageView({ product }: ProductPageViewProps) {
                             <ul className="check-list section-space--mb_40">
                               <li className="list-item">
                                 <strong>
-                                  Included Accessories for {product.hero.name}{" "}
+                                  {t.includedFor} {product.hero.name}{" "}
                                 </strong>
                                 <ul className="circle-list">
                                   {product.inTheBox.accessories.map((accessory) => (
@@ -390,6 +419,7 @@ export function ProductPageView({ product }: ProductPageViewProps) {
               <ProductAddOnsSection
                 addOns={product.addOns ?? []}
                 specs={product.specs ?? []}
+                spaced={Boolean(product.inTheBox)}
               />
             ) : null}
           </div>
@@ -421,8 +451,8 @@ export function ProductPageView({ product }: ProductPageViewProps) {
                       <i className="far fa-info-circle" />
                     </span>
                     {product.cta.action === "contact" || !product.cta.brochureFilename
-                      ? "Contact Us"
-                      : "Download Brochure (PDF)"}
+                      ? t.contactUs
+                      : t.downloadBrochure}
                   </a>
                 </div>
               </div>
@@ -438,7 +468,8 @@ export function ProductPageView({ product }: ProductPageViewProps) {
               <div className="col-lg-12">
                 <div className="section-title-wrap text-center section-space--mb_40">
                   <h3 className="heading">
-                    Photo <span className="text-color-primary"> Gallery </span>
+                    {t.galleryBefore}
+                    <span className="text-color-primary">{t.galleryHighlight}</span>
                   </h3>
                 </div>
               </div>
@@ -449,7 +480,9 @@ export function ProductPageView({ product }: ProductPageViewProps) {
                 <div className="row">
                   <div className="col-lg-12">
                     <div className="section-title-wrap text-center section-space--mb_40 section-space--mt_20">
-                      <h6 className="section-sub-title mb-20">{group.title}</h6>
+                      <h6 className="section-sub-title mb-20">
+                        {t.galleryTitles[group.title] ?? group.title}
+                      </h6>
                     </div>
                   </div>
                 </div>

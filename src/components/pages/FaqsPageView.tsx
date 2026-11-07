@@ -3,11 +3,16 @@ import { ContactForm } from "@/components/ContactForm";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { PageBreadcrumb } from "@/components/PageBreadcrumb";
 import { faqSections } from "@/data/faqs";
+import { getDictionary } from "@/i18n/dictionary";
+import { getLocale } from "@/i18n/get-locale";
 
-export function FaqsPageView() {
+export async function FaqsPageView() {
+  const t = getDictionary(await getLocale());
+  const sections = t.faqs.sections.length > 0 ? t.faqs.sections : faqSections;
+
   return (
     <>
-      <PageBreadcrumb title="FAQs" headingLevel="h2" />
+      <PageBreadcrumb title={t.faqs.title} headingLevel="h2" />
 
       <div className="site-wrapper-reveal">
         <div className="accordion-wrapper section-space--ptb_80 border-top">
@@ -15,17 +20,15 @@ export function FaqsPageView() {
             <div className="row">
               <div className="col-lg-12">
                 <div className="section-title-wrap text-center section-space--mb_40">
-                  <h3 className="heading">Frequently Asked Questions</h3>
-                  <p className="faq-compact__intro">
-                    Company, products, distributors, and support — grouped for quick scanning.
-                  </p>
+                  <h3 className="heading">{t.faqs.heading}</h3>
+                  <p className="faq-compact__intro">{t.faqs.intro}</p>
                 </div>
               </div>
             </div>
 
             <div className="row align-items-start">
               <div className="col-lg-7">
-                <FaqAccordion sections={faqSections} />
+                <FaqAccordion sections={sections} />
               </div>
               <div className="col-lg-5">
                 <div className="faq-compact__video video-interview video-popup">

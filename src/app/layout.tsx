@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Montserrat } from "next/font/google";
+import { LocaleProvider } from "@/components/LocaleProvider";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { NavigationProgressRoot } from "@/components/NavigationProgressRoot";
+import { getDictionary } from "@/i18n/dictionary";
+import { getLocale } from "@/i18n/get-locale";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -11,20 +14,23 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: "Aspen Imaging - Next Generation Medical Device Manufacturer",
-    template: "%s | Aspen Imaging",
-  },
-  description:
-    "We manufacture and distribute next-generation medical imaging devices such as X-Ray systems, mobile X-rays, C-arm, flat panel detectors, and ultrasound systems.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = getDictionary(await getLocale());
+  return {
+    title: {
+      default: t.meta.title,
+      template: t.meta.titleTemplate,
+    },
+    description: t.meta.description,
+  };
+}
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
+  const locale = await getLocale();
 
   return (
-    <html lang="en" className={montserrat.variable}>
+    <html lang={locale} className={montserrat.variable}>
       <head>
         <link rel="icon" href="/assets/images/favicon.png" />
         <link rel="stylesheet" href="/assets/css/vendor/bootstrap.min.css" />
@@ -53,10 +59,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             />
           </noscript>
         ) : null}
-        <SiteHeader />
-        <NavigationProgressRoot />
-        {children}
-        <SiteFooter />
+        <LocaleProvider locale={locale}>
+          <SiteHeader />
+          <NavigationProgressRoot />
+          {children}
+          <SiteFooter />
+        </LocaleProvider>
       </body>
     </html>
   );
