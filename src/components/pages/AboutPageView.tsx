@@ -1,264 +1,137 @@
-import Link from "next/link";
+import Image from "next/image";
 import { ContactForm } from "@/components/ContactForm";
+import { FunFacts } from "@/components/FunFacts";
+import { PageBreadcrumb } from "@/components/PageBreadcrumb";
+import { certifications } from "@/data/certifications";
+import { getDictionary } from "@/i18n/dictionary";
+import { getLocale } from "@/i18n/get-locale";
 
-const certifications = [
-  {
-    title: "FDA",
-    image: "/assets/images/accreditation/fda.png",
-    text: "FDA is a federal agency of the United States Department of Health and Human Services. The systems provided for the U.S market have been registered and hold an FDA 510(K) when applicable.",
-  },
-  {
-    title: "Cofepris",
-    image: "/assets/images/accreditation/cofepris.png",
-    text: "Cofepris is a regulatory body of the Mexican government that is responsible for regulating a variety of health related topics in Mexico, including medical devices.",
-  },
-  {
-    title: "ISO 13485",
-    image: "/assets/images/accreditation/iso.png",
-    text: "ISO 13485 is a quality management system for the design and manufacture of medical devices. We have been assessed and found in compliance with ISO 13485:2016. As a result, our facility proudly has this certificate hanging in our front lobby.",
-  },
-];
+export async function AboutPageView() {
+  const t = getDictionary(await getLocale());
 
-const values = [
-  {
-    icon: "fal fa-life-ring",
-    title: "Products ready to support your needs",
-    text: "Each of our products are ready to support your needs today, reflecting multiple years of design, development, testing and regulatory efforts",
-  },
-  {
-    icon: "fal fa-lock-alt",
-    title: "We're in this for the long-haul",
-    text: "It's not a quick sale—we're in this for the long-haul, investing projects and products that represent long-term, sustainable growth",
-  },
-  {
-    icon: "fal fa-globe",
-    title: "Sustainable growth",
-    text: "We develop and propose product improvements through periodical and accurate testing, repairing & refining every version.",
-  },
-  {
-    icon: "fal fa-medal",
-    title: "Future-oriented Product Roadmaps",
-    text: "Because of the naturally lengthy development cycles involved in the products, we provide product roadmaps that are essential to your organization's success",
-  },
-];
-
-export function AboutPageView() {
   return (
-    <div className="site-wrapper-reveal">
-      <div className="about-banner-wrap banner-space about-us-bg">
+    <div className="site-wrapper-reveal about-page">
+      <PageBreadcrumb title={t.about.title} variant="about" />
+
+      <div className="about-sheet">
         <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <div className="breadcrumb_box text-center">
-                <h1 className="breadcrumb-title">About us</h1>
-                <ul className="breadcrumb-list">
-                  <li className="breadcrumb-item">
-                    <Link href="/">Home</Link>
+          <section className="about-block about-open">
+            <p className="about-label">{t.about.eyebrow}</p>
+            <h2>
+              {t.about.headingBefore}
+              <span className="about-mark">{t.about.headingHighlight}</span>
+              {t.about.headingAfter}
+            </h2>
+            <div className="about-open__body">
+              <div>
+                <p className="about-prose">{t.about.intro}</p>
+              </div>
+              <figure className="about-map">
+                <Image
+                  src="/assets/images/addons/map.png"
+                  alt={t.about.mapAlt}
+                  width={640}
+                  height={420}
+                  style={{ width: "100%", height: "auto" }}
+                />
+              </figure>
+            </div>
+          </section>
+
+          <section className="about-block about-quality" id="quality">
+            <p className="about-label">{t.commitment.title}</p>
+            <div>
+              <h2>
+                <span className="about-quality__label">{t.about.missionLabel.trim()}</span>
+                {t.about.mission}
+              </h2>
+              <div className="about-split">
+                <article>
+                  <p className="about-index">01</p>
+                  <h3>{t.about.visionTitle}</h3>
+                  <p>
+                    {t.about.visionBefore}
+                    <strong>{t.about.visionStrong}</strong>
+                    {t.about.visionAfter}
+                  </p>
+                </article>
+                <article>
+                  <p className="about-index">02</p>
+                  <h3>{t.about.coreTitle}</h3>
+                  <p>
+                    <strong>{t.about.coreStrong}</strong>
+                  </p>
+                  <p>
+                    {t.about.coreBefore}
+                    <strong>{t.about.coreStrong2}</strong>
+                    {t.about.coreAfter}
+                  </p>
+                </article>
+              </div>
+            </div>
+          </section>
+
+          <section className="about-block about-standards" aria-labelledby="about-certs-heading">
+            <p className="about-label">{t.certifications.eyebrow}</p>
+            <div>
+              <div className="about-standards__intro">
+                <Image
+                  src="/assets/images/logo/Aspen-Imaging_Logo_Full_Stacked_Gray.png"
+                  alt="Aspen Imaging"
+                  width={180}
+                  height={120}
+                  style={{ width: 148, height: "auto" }}
+                />
+                <div>
+                  <h2 id="about-certs-heading">
+                    {t.certifications.headingBefore}
+                    {t.certifications.headingHighlight}
+                  </h2>
+                  <p className="about-prose">{t.about.accreditationLead}</p>
+                </div>
+              </div>
+              <div className="about-standards__list">
+                {certifications.map((cert) => (
+                  <article key={cert.title}>
+                    <div className="about-standards__mark">
+                      <Image
+                        src={cert.image}
+                        alt=""
+                        width={200}
+                        height={120}
+                        style={{ width: "auto", height: "auto", maxWidth: "100%", maxHeight: 84 }}
+                      />
+                    </div>
+                    <h3>{cert.title}</h3>
+                    <p>{t.certifications.items[cert.title] ?? cert.text}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="about-block about-practice">
+            <p className="about-label">{t.about.togetherHighlight}</p>
+            <div>
+              <h2>
+                {t.about.togetherBefore}
+                <span className="about-mark">{t.about.togetherHighlight}</span>.
+              </h2>
+              <ol className="about-practice__list">
+                {t.about.values.map((value, index) => (
+                  <li key={value.title}>
+                    <p className="about-index">{String(index + 1).padStart(2, "0")}</p>
+                    <h3>{value.title}</h3>
+                    <p>{value.text}</p>
                   </li>
-                  <li className="breadcrumb-item active">About us</li>
-                </ul>
-              </div>
+                ))}
+              </ol>
             </div>
-          </div>
+          </section>
         </div>
       </div>
 
-      <div className="feature-large-images-wrapper section-space--ptb_100">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="section-title-wrap text-center section-space--mb_60">
-                <h6 className="section-sub-title mb-20">Our company</h6>
-                <h3 className="heading">
-                  Aspen Imaging Healthcare&apos;s <span className="text-color-primary"> Quality</span>
-                </h3>
-              </div>
-            </div>
-          </div>
-
-          <div className="cybersecurity-about-box section-space--pb_70">
-            <div className="row">
-              <div className="col-lg-6">
-                <img src="/assets/images/addons/map.png" className="img-fluid" alt="Global reach" />
-              </div>
-              <div className="col-lg-5 offset-lg-1">
-                <div className="cybersecurity-about-text">
-                  <div className="text">
-                    Aspen Imaging Healthcare has always maintained the highest production standards
-                    for quality, safety and efficiency, holding an extensive list of accreditation
-                    from key global customers, platforms, and standard agencies across various
-                    market sectors and geographic regions.
-                    <br />
-                    <br />
-                    Below is the list of our national and international accreditation
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <h3 className="heading text-center section-space--mb_60">
-            <span className="text-color-primary"> Our Mission</span>: To become a globally trusted
-            healthcare equipment provider with unmatched services and solutions.
-          </h3>
-
-          <div className="row">
-            <div className="col-12">
-              <div className="feature-images__six">
-                <div className="row">
-                  <div className="col-lg-6 col-md-6">
-                    <div className="ht-box-images style-06">
-                      <div className="image-box-wrap">
-                        <div className="box-image">
-                          <div className="default-image">
-                            <img
-                              className="img-fulid"
-                              src="/assets/images/icons/mitech-box-image-style-06-image-01-120x120.png"
-                              alt=""
-                            />
-                          </div>
-                        </div>
-                        <div className="content">
-                          <h5 className="heading">Our vision</h5>
-                          <div className="text">
-                            We strive to improve <strong>clinical and diagnostic outcomes</strong>{" "}
-                            with every system that we design, deliver and install
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-lg-6 col-md-6">
-                    <div className="ht-box-images style-06">
-                      <div className="image-box-wrap">
-                        <div className="box-image">
-                          <div className="default-image">
-                            <img
-                              className="img-fulid"
-                              src="/assets/images/icons/mitech-box-image-style-06-image-02-120x120.png"
-                              alt=""
-                            />
-                          </div>
-                        </div>
-                        <div className="content">
-                          <h5 className="heading">Our Core</h5>
-                          <div className="text">
-                            <strong>Market-leading product quality and reliability</strong>
-                          </div>
-                          <br />
-                          <div className="text">
-                            Factory responsiveness, and <strong>agile manufacturing </strong> that
-                            can quickly adapt to changing requirements
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="feature-large-images-wrapper bg-gray section-space--ptb_100">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="section-title-wrap text-center section-space--mb_30">
-                <h6 className="section-sub-title mb-20">Our Standards</h6>
-                <h3 className="heading">
-                  Our <span className="text-color-primary"> Certifications and Accreditations</span>
-                </h3>
-              </div>
-            </div>
-          </div>
-
-          <div className="row row--35">
-            {certifications.map((cert) => (
-              <div key={cert.title} className="col-lg-4 col-md-6 mt-30">
-                <div className="box-large-image__box">
-                  <div className="box-large-image__midea">
-                    <div className="images-midea">
-                      <img src={cert.image} className="img-fluid" alt={cert.title} style={{ height: 300 }} />
-                      <div className="heading-wrap">
-                        <h5 className="heading">{cert.title}</h5>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="box-large-image__content mt-30 text-center">
-                    <p>{cert.text}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div className="about-delivering-wrapper">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="section-title-wrap text-center section-space--mb_20">
-                <h3 className="heading">
-                  Let&apos;s build a better tomorrow. <span className="text-color-primary">Together</span>.
-                </h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="feature-icon-wrapper section-space--pb_80 section-space--pt_80 border-bottom">
-        <div className="container">
-          <div className="feature-list__three">
-            <div className="row">
-              {values.map((value) => (
-                <div key={value.title} className="col-lg-6">
-                  <div className="grid-item animate">
-                    <div className="ht-box-icon style-03">
-                      <div className="icon-box-wrap">
-                        <div className="content-header">
-                          <div className="icon">
-                            <i className={value.icon} />
-                          </div>
-                          <h5 className="heading">{value.title}</h5>
-                        </div>
-                        <div className="content">
-                          <div className="text">{value.text}</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="fun-fact-wrapper bg-theme-default section-space--pb_30 section-space--pt_60">
-        <div className="container">
-          <div className="row">
-            {[
-              ["70", "Returning Distributors"],
-              ["1000", "Finished projects"],
-              ["35", "Skilled Experts"],
-              ["15", "Countries"],
-            ].map(([count, label], index) => (
-              <div key={label} className="col-md-3 col-sm-6">
-                <div className="fun-fact--two text-center">
-                  <h6 className="fun-fact__text">{index === 3 ? "Serving over" : "Over"}</h6>
-                  <div className="fun-fact__count counter">{count}</div>
-                  <h6 className="fun-fact__text">{label}</h6>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
+      <FunFacts />
       <ContactForm />
     </div>
   );

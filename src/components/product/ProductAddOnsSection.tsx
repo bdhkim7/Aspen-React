@@ -1,37 +1,43 @@
 "use client";
 
 import { useState } from "react";
+import { useDictionary } from "@/components/LocaleProvider";
 import type { ProductAddOn } from "@/types/product";
 
 type ProductAddOnsSectionProps = {
   addOns: ProductAddOn[];
   specs: { label: string; value: string }[];
+  /** Extra space when this block follows the in-the-box content. */
+  spaced?: boolean;
 };
 
-export function ProductAddOnsSection({ addOns, specs }: ProductAddOnsSectionProps) {
+export function ProductAddOnsSection({ addOns, specs, spaced = false }: ProductAddOnsSectionProps) {
   const hasAddOns = addOns.length > 0;
   const hasSpecs = specs.length > 0;
   const [activeTab, setActiveTab] = useState<"addons" | "specs">(
     hasAddOns ? "addons" : "specs",
   );
   const [activeModal, setActiveModal] = useState<ProductAddOn | null>(null);
+  const t = useDictionary().product;
 
   if (!hasAddOns && !hasSpecs) return null;
 
   return (
     <>
-      <div className="row">
+      <div className={`row${spaced ? " section-space--mt_80" : ""}`}>
         <div className="col-lg-12">
           <div className="section-title-wrapper text-center section-space--mb_60">
             <h3 className="section-title">
               {hasAddOns && hasSpecs ? (
                 <>
-                  Add-Ons <span className="text-color-primary"> & </span> Specs
+                  {t.addOnsAndSpecsBefore}
+                  <span className="text-color-primary">{t.addOnsAndSpecsMid}</span>
+                  {t.addOnsAndSpecsAfter}
                 </>
               ) : hasAddOns ? (
-                "Add-Ons"
+                t.addOns
               ) : (
-                "Specifications"
+                t.specifications
               )}
             </h3>
           </div>
@@ -44,22 +50,32 @@ export function ProductAddOnsSection({ addOns, specs }: ProductAddOnsSectionProp
             <div className="text-center">
               <ul className="nav justify-content-center ht-tab-menu ht-tab-menu_two" role="tablist">
                 <li className={`tab__item nav-item${activeTab === "addons" ? " active" : ""}`}>
-                  <button
-                    type="button"
-                    className={`nav-link${activeTab === "addons" ? " active" : ""}`}
-                    onClick={() => setActiveTab("addons")}
+                  <a
+                    href="#add-ons"
+                    className={`nav-link text-center${activeTab === "addons" ? " active" : ""}`}
+                    role="tab"
+                    aria-selected={activeTab === "addons"}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setActiveTab("addons");
+                    }}
                   >
-                    Add-Ons
-                  </button>
+                    {t.addOns}
+                  </a>
                 </li>
                 <li className={`tab__item nav-item${activeTab === "specs" ? " active" : ""}`}>
-                  <button
-                    type="button"
-                    className={`nav-link${activeTab === "specs" ? " active" : ""}`}
-                    onClick={() => setActiveTab("specs")}
+                  <a
+                    href="#specification"
+                    className={`nav-link text-center${activeTab === "specs" ? " active" : ""}`}
+                    role="tab"
+                    aria-selected={activeTab === "specs"}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setActiveTab("specs");
+                    }}
                   >
-                    Specification
-                  </button>
+                    {t.specification}
+                  </a>
                 </li>
               </ul>
             </div>
@@ -89,7 +105,7 @@ export function ProductAddOnsSection({ addOns, specs }: ProductAddOnsSectionProp
                             <h5 className="heading">{addOn.title}</h5>
                             <div className="text">{addOn.summary}</div>
                             <div className="box-projects-arrow">
-                              <span className="button-text">View Details</span>
+                              <span className="button-text">{t.viewDetails}</span>
                               <i className="fa fa-long-arrow-right ml-1" />
                             </div>
                           </div>
@@ -110,8 +126,8 @@ export function ProductAddOnsSection({ addOns, specs }: ProductAddOnsSectionProp
                         <table className="table-fill">
                           <thead>
                             <tr>
-                              <th className="text-left">Item</th>
-                              <th className="text-left">Specification</th>
+                              <th className="text-left">{t.item}</th>
+                              <th className="text-left">{t.specification}</th>
                             </tr>
                           </thead>
                           <tbody className="table-hover">

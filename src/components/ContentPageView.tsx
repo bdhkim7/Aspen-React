@@ -1,17 +1,20 @@
 import { ContactForm } from "@/components/ContactForm";
+import { PageBreadcrumb } from "@/components/PageBreadcrumb";
+import { getDictionary } from "@/i18n/dictionary";
+import { getLocale } from "@/i18n/get-locale";
 import type { ContentBlock, ContentPageData } from "@/types/content";
 
 type ContentPageViewProps = {
   page: ContentPageData;
 };
 
-function Block({ block }: { block: ContentBlock }) {
+function Block({ block, comingSoon }: { block: ContentBlock; comingSoon: string }) {
   switch (block.type) {
     case "comingSoon":
       return (
         <div className="section-title-wrap text-center">
           <h3 className="heading">
-            <span className="text-color-primary"> Page Coming Soon </span>
+            <span className="text-color-primary">{comingSoon}</span>
           </h3>
         </div>
       );
@@ -80,29 +83,15 @@ function Block({ block }: { block: ContentBlock }) {
   }
 }
 
-export function ContentPageView({ page }: ContentPageViewProps) {
+export async function ContentPageView({ page }: ContentPageViewProps) {
+  const t = getDictionary(await getLocale());
   const teamMembers = page.blocks.filter((block) => block.type === "teamMember");
   const otherBlocks = page.blocks.filter((block) => block.type !== "teamMember");
+  const title = t.industries[page.slug] ?? page.breadcrumb;
 
   return (
     <div>
-      <div className="breadcrumb-area">
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <div className="breadcrumb_box text-center">
-                <h1 className="breadcrumb-title">{page.breadcrumb}</h1>
-                <ul className="breadcrumb-list">
-                  <li className="breadcrumb-item">
-                    <a href="/">Home</a>
-                  </li>
-                  <li className="breadcrumb-item active">{page.breadcrumb}</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <PageBreadcrumb title={title} />
 
       <div className="site-wrapper-reveal">
         <div className="feature-images-wrapper section-space--ptb_100">
@@ -110,7 +99,7 @@ export function ContentPageView({ page }: ContentPageViewProps) {
             {otherBlocks.map((block, index) => (
               <div key={`${block.type}-${index}`} className="row mb-4">
                 <div className="col-lg-12">
-                  <Block block={block} />
+                  <Block block={block} comingSoon={t.comingSoon} />
                 </div>
               </div>
             ))}
@@ -125,6 +114,7 @@ export function ContentPageView({ page }: ContentPageViewProps) {
                         : `${block.type}-${index}`
                     }
                     block={block}
+                    comingSoon={t.comingSoon}
                   />
                 ))}
               </div>

@@ -1,28 +1,18 @@
-import Link from "next/link";
+import Image from "next/image";
 import { ContactForm } from "@/components/ContactForm";
 import { FaqAccordion } from "@/components/FaqAccordion";
+import { PageBreadcrumb } from "@/components/PageBreadcrumb";
 import { faqSections } from "@/data/faqs";
+import { getDictionary } from "@/i18n/dictionary";
+import { getLocale } from "@/i18n/get-locale";
 
-export function FaqsPageView() {
+export async function FaqsPageView() {
+  const t = getDictionary(await getLocale());
+  const sections = t.faqs.sections.length > 0 ? t.faqs.sections : faqSections;
+
   return (
     <>
-      <div className="breadcrumb-area">
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <div className="breadcrumb_box text-center">
-                <h2 className="breadcrumb-title">FAQs</h2>
-                <ul className="breadcrumb-list">
-                  <li className="breadcrumb-item">
-                    <Link href="/">Home</Link>
-                  </li>
-                  <li className="breadcrumb-item active">FAQs</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <PageBreadcrumb title={t.faqs.title} headingLevel="h2" />
 
       <div className="site-wrapper-reveal">
         <div className="accordion-wrapper section-space--ptb_80 border-top">
@@ -30,17 +20,15 @@ export function FaqsPageView() {
             <div className="row">
               <div className="col-lg-12">
                 <div className="section-title-wrap text-center section-space--mb_40">
-                  <h3 className="heading">Frequently Asked Questions</h3>
-                  <p className="faq-compact__intro">
-                    Company, products, distributors, and support — grouped for quick scanning.
-                  </p>
+                  <h3 className="heading">{t.faqs.heading}</h3>
+                  <p className="faq-compact__intro">{t.faqs.intro}</p>
                 </div>
               </div>
             </div>
 
             <div className="row align-items-start">
               <div className="col-lg-7">
-                <FaqAccordion sections={faqSections} />
+                <FaqAccordion sections={sections} />
               </div>
               <div className="col-lg-5">
                 <div className="faq-compact__video video-interview video-popup">
@@ -51,10 +39,13 @@ export function FaqsPageView() {
                     rel="noreferrer"
                   >
                     <div className="single-popup-wrap">
-                      <img
+                      <Image
                         className="img-fluid border-radus-5"
                         src="/assets/images/bg/faqs-video-poster.jpg"
                         alt="Aspen Imaging overview video"
+                        width={640}
+                        height={360}
+                        style={{ width: "100%", height: "auto" }}
                       />
                       <div className="ht-popup-video video-button">
                         <div className="video-mark">

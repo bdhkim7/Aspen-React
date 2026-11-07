@@ -1,29 +1,29 @@
 "use client";
 
-import Link from "next/link";
-import { useMemo, useState } from "react";
+import Image from "next/image";
+import { useState } from "react";
+import { LocaleLink } from "@/components/LocaleLink";
+import { useDictionary } from "@/components/LocaleProvider";
 import { catalogProducts, type ProductCategory } from "@/data/catalog";
 
 type Filter = "*" | ProductCategory;
 
-const filters: { id: Filter; label: string }[] = [
-  { id: "*", label: "Show All" },
-  { id: "handheld", label: "Handheld X-Ray" },
-  { id: "x-ray", label: "X-Ray Systems" },
-  { id: "flat", label: "Flat Panel Detectors" },
-];
+const counts = {
+  "*": catalogProducts.length,
+  handheld: catalogProducts.filter((p) => p.category === "handheld").length,
+  "x-ray": catalogProducts.filter((p) => p.category === "x-ray").length,
+  flat: catalogProducts.filter((p) => p.category === "flat").length,
+} as const;
 
 export function ProductGrid() {
   const [filter, setFilter] = useState<Filter>("*");
-
-  const counts = useMemo(() => {
-    return {
-      "*": catalogProducts.length,
-      handheld: catalogProducts.filter((p) => p.category === "handheld").length,
-      "x-ray": catalogProducts.filter((p) => p.category === "x-ray").length,
-      flat: catalogProducts.filter((p) => p.category === "flat").length,
-    };
-  }, []);
+  const t = useDictionary();
+  const filters: { id: Filter; label: string }[] = [
+    { id: "*", label: t.catalog.showAll },
+    { id: "handheld", label: t.catalog.handheld },
+    { id: "x-ray", label: t.catalog.xray },
+    { id: "flat", label: t.catalog.flat },
+  ];
 
   const visible =
     filter === "*"
@@ -36,9 +36,10 @@ export function ProductGrid() {
         <div className="row">
           <div className="col-lg-12">
             <div className="section-title-wrap text-center section-space--mb_40">
-              <h6 className="section-sub-title mb-20">Built for Versatility & Efficiency</h6>
+              <h6 className="section-sub-title mb-20">{t.catalog.eyebrow}</h6>
               <h3 className="heading">
-                Our <span className="text-color-primary"> Product Line Up</span>
+                {t.catalog.headingBefore}
+                <span className="text-color-primary">{t.catalog.headingHighlight}</span>
               </h3>
             </div>
             <div className="messonry-button text-center section-space--mb_60">
@@ -63,14 +64,23 @@ export function ProductGrid() {
               const body = (
                 <div className="projects-image-box">
                   <div className="projects-image">
-                    <img className="img-fluid" src={product.image} alt={product.name} />
+                    <Image
+                      className="img-fluid"
+                      src={product.image}
+                      alt={product.name}
+                      width={480}
+                      height={300}
+                      style={{ width: "100%", height: "auto" }}
+                    />
                   </div>
                   <div className="content">
                     <h6 className="heading">{product.name}</h6>
-                    <div className="post-categories">{product.categoryLabel}</div>
-                    <div className="text">{product.summary}</div>
+                    <div className="post-categories">
+                      {t.catalog.category[product.category] ?? product.categoryLabel}
+                    </div>
+                    <div className="text">{t.catalog.summary[product.slug] ?? product.summary}</div>
                     <div className="box-projects-arrow">
-                      <span className="button-text">View Details</span>
+                      <span className="button-text">{t.catalog.viewDetails}</span>
                       <i className="fa fa-long-arrow-right ml-1" />
                     </div>
                   </div>
@@ -84,9 +94,9 @@ export function ProductGrid() {
                       {body}
                     </a>
                   ) : (
-                    <Link href={product.href} className="projects-wrap style-01">
+                    <LocaleLink href={product.href} className="projects-wrap style-01">
                       {body}
-                    </Link>
+                    </LocaleLink>
                   )}
                 </div>
               );

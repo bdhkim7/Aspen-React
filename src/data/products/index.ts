@@ -58,6 +58,24 @@ export const productContentBySlug: Record<string, ProductPageContent> = {
   "aspenview-es": aspenviewEs,
 };
 
+export const softwareSlugs = ["aspenview", "aspenview-es"] as const;
+
+export function isSoftwareSlug(slug: string): boolean {
+  return (softwareSlugs as readonly string[]).includes(slug);
+}
+
 export function getProductContent(slug: string): ProductPageContent | undefined {
   return productContentBySlug[slug];
+}
+
+export function getProductStaticParams() {
+  return Object.keys(productContentBySlug)
+    .filter((slug) => !isSoftwareSlug(slug))
+    .map((slug) => ({ slug }));
+}
+
+export function getSoftwareStaticParams() {
+  return softwareSlugs
+    .filter((slug) => slug in productContentBySlug)
+    .map((slug) => ({ slug }));
 }

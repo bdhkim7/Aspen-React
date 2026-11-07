@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { ContentPageView } from "@/components/ContentPageView";
 import { industryPages } from "@/data/catalog";
 import { getIndustryContent } from "@/data/industries";
+import { getDictionary } from "@/i18n/dictionary";
+import { getLocale } from "@/i18n/get-locale";
 
 type IndustryPageProps = {
   params: Promise<{ slug: string }>;
@@ -16,7 +18,8 @@ export async function generateMetadata({ params }: IndustryPageProps): Promise<M
   const { slug } = await params;
   const content = getIndustryContent(slug);
   const page = industryPages.find((item) => item.slug === slug);
-  return { title: content?.title ?? page?.title ?? "Industry" };
+  const t = getDictionary(await getLocale());
+  return { title: t.industries[slug] ?? content?.title ?? page?.title ?? "Industry" };
 }
 
 export default async function IndustryPage({ params }: IndustryPageProps) {

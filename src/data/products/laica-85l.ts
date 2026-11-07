@@ -72,11 +72,16 @@ export const laica85l: ProductPageContent = {
         title: "Portable Imaging, Wherever Care Happens",
         body: "Lightweight and battery-powered, Laica85L is designed to move between veterinary clinics, mobile services, equine facilities, shelters, and field settings.",
         image: "/assets/images/products/Laica85L/funcionamiento_b.png",
+        images: ["/assets/images/products/Laica85L/funcionamiento_b.png"],
       },
       {
         title: "Across Species. Across Settings.",
         body: "From companion animals to equine and wildlife cases, Laica85L supports flexible veterinary radiography workflows—in the clinic or out in the field.",
         image: "/assets/images/products/Laica85L/Laica85L_Web_Dog_Cat_b.png",
+        images: [
+          "/assets/images/products/Laica85L/Laica85L_Web_Dog_Cat_b.png",
+          "/assets/images/products/Laica85L/Laica85L_Web_Lion_b.png",
+        ],
         imageFirst: true,
       },
     ],

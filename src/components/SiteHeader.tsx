@@ -1,8 +1,11 @@
 "use client";
 
-import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import { LanguageSwitch } from "@/components/LanguageSwitch";
+import { LocaleLink as Link } from "@/components/LocaleLink";
+import { useDictionary } from "@/components/LocaleProvider";
 import {
   accessoryLinks,
   companyLinks,
@@ -13,6 +16,7 @@ import {
   veterinaryLinks,
   type NavLink,
 } from "@/data/site";
+import { linkLabel } from "@/i18n/dictionary";
 
 function MenuLinks({
   links,
@@ -21,17 +25,19 @@ function MenuLinks({
   links: NavLink[];
   onNavigate?: () => void;
 }) {
+  const t = useDictionary();
+
   return (
     <ul>
       {links.map((link) => (
         <li key={`${link.href}-${link.label}`}>
           {link.external ? (
             <a href={link.href} download>
-              <span>{link.label}</span>
+              <span>{linkLabel(t, link.href, link.label)}</span>
             </a>
           ) : (
             <Link href={link.href} onClick={onNavigate}>
-              <span>{link.label}</span>
+              <span>{linkLabel(t, link.href, link.label)}</span>
             </Link>
           )}
         </li>
@@ -42,6 +48,7 @@ function MenuLinks({
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const t = useDictionary();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [menusLocked, setMenusLocked] = useState(false);
   /** Tracks whether the pointer is currently over the desktop nav. */
@@ -79,10 +86,14 @@ export function SiteHeader() {
                 <div className="header position-relative">
                   <div className="header__logo">
                     <Link href="/" onClick={lockMenusUntilLeave}>
-                      <img
+                      <Image
                         src="/assets/images/logo/Aspen-Imaging_Logo_Full_Stacked_Gray.png"
                         className="img-fluid responsive-logo"
                         alt="Aspen Imaging"
+                        width={200}
+                        height={72}
+                        priority
+                        style={{ width: "auto", height: "auto", maxHeight: 72 }}
                       />
                     </Link>
                   </div>
@@ -108,13 +119,13 @@ export function SiteHeader() {
                           onPointerEnter={() => setMenusLocked(false)}
                         >
                           <a>
-                            <span>Company</span>
+                            <span>{t.nav.company}</span>
                           </a>
                           <ul className="submenu">
                             {companyLinks.map((link) => (
                               <li key={link.href}>
                                 <Link href={link.href} onClick={lockMenusUntilLeave}>
-                                  <span>{link.label}</span>
+                                  <span>{linkLabel(t, link.href, link.label)}</span>
                                 </Link>
                               </li>
                             ))}
@@ -125,39 +136,39 @@ export function SiteHeader() {
                           className="has-children"
                           onPointerEnter={() => setMenusLocked(false)}
                         >
-                          <a href="#products">
-                            <span>Solutions</span>
-                          </a>
+                          <Link href="/#products" onClick={lockMenusUntilLeave}>
+                            <span>{t.nav.solutions}</span>
+                          </Link>
                           <ul className="megamenu megamenu--mega">
                             <li>
-                              <h2 className="page-list-title">Flat Panel Detectors</h2>
-                              <h4 className="page-list-title">iODR Series</h4>
+                              <h2 className="page-list-title">{t.nav.detectors}</h2>
+                              <h4 className="page-list-title">{t.nav.iodrSeries}</h4>
                               <MenuLinks
                                 links={detectorLinks}
                                 onNavigate={lockMenusUntilLeave}
                               />
                               <br />
-                              <h4 className="page-list-title">Accessories</h4>
+                              <h4 className="page-list-title">{t.nav.accessories}</h4>
                               <MenuLinks
                                 links={accessoryLinks}
                                 onNavigate={lockMenusUntilLeave}
                               />
                             </li>
                             <li>
-                              <h2 className="page-list-title">Medical Systems</h2>
+                              <h2 className="page-list-title">{t.nav.medicalSystems}</h2>
                               <MenuLinks
                                 links={medicalSystemLinks}
                                 onNavigate={lockMenusUntilLeave}
                               />
                               <br />
-                              <h4 className="page-list-title">Software</h4>
+                              <h4 className="page-list-title">{t.nav.software}</h4>
                               <MenuLinks
                                 links={softwareLinks}
                                 onNavigate={lockMenusUntilLeave}
                               />
                             </li>
                             <li>
-                              <h2 className="page-list-title">Veterinary</h2>
+                              <h2 className="page-list-title">{t.nav.veterinary}</h2>
                               <MenuLinks
                                 links={veterinaryLinks}
                                 onNavigate={lockMenusUntilLeave}
@@ -171,13 +182,13 @@ export function SiteHeader() {
                           onPointerEnter={() => setMenusLocked(false)}
                         >
                           <a>
-                            <span>Contact</span>
+                            <span>{t.nav.contact}</span>
                           </a>
                           <ul className="submenu">
                             {contactLinks.map((link) => (
                               <li key={link.href}>
                                 <Link href={link.href} onClick={lockMenusUntilLeave}>
-                                  <span>{link.label}</span>
+                                  <span>{linkLabel(t, link.href, link.label)}</span>
                                 </Link>
                               </li>
                             ))}
@@ -189,10 +200,11 @@ export function SiteHeader() {
 
                   <div className="header__actions--preview">
                     <div className="header__actions">
+                      <LanguageSwitch />
                       <button
                         type="button"
                         className="mobile-navigation-icon d-block d-xl-none"
-                        aria-label="Open menu"
+                        aria-label={t.nav.openMenu}
                         onClick={() => setMobileOpen(true)}
                       >
                         <i />
@@ -217,10 +229,13 @@ export function SiteHeader() {
                 <div className="col-md-6 col-8">
                   <div className="logo">
                     <Link href="/" onClick={lockMenusUntilLeave}>
-                      <img
+                      <Image
                         src="/assets/images/logo/logo-dark.png"
                         className="img-fluid"
                         alt="Aspen Imaging"
+                        width={160}
+                        height={48}
+                        style={{ width: "auto", height: "auto", maxHeight: 48 }}
                       />
                     </Link>
                   </div>
@@ -230,7 +245,7 @@ export function SiteHeader() {
                     <button
                       type="button"
                       className="mobile-navigation-close-icon"
-                      aria-label="Close menu"
+                      aria-label={t.nav.closeMenu}
                       onClick={() => setMobileOpen(false)}
                     />
                   </div>
@@ -240,36 +255,39 @@ export function SiteHeader() {
           </div>
           <div className="mobile-menu-overlay__body">
             <nav className="offcanvas-navigation">
+              <div className="mobile-lang-switch">
+                <LanguageSwitch />
+              </div>
               <ul>
                 <li className="has-children">
-                  <span>Company</span>
+                  <span>{t.nav.company}</span>
                   <ul className="sub-menu">
                     {companyLinks.map((link) => (
                       <li key={link.href}>
                         <Link href={link.href} onClick={lockMenusUntilLeave}>
-                          <span>{link.label}</span>
+                          <span>{linkLabel(t, link.href, link.label)}</span>
                         </Link>
                       </li>
                     ))}
                   </ul>
                 </li>
                 <li className="has-children">
-                  <span>Solutions</span>
+                  <span>{t.nav.solutions}</span>
                   <ul className="sub-menu">
                     <li>
                       <Link href="/software/aspenview" onClick={lockMenusUntilLeave}>
-                        <span>AspenView</span>
+                        <span>{linkLabel(t, "/software/aspenview", "AspenView")}</span>
                       </Link>
                     </li>
                     {medicalSystemLinks.map((link) => (
                       <li key={`${link.href}-${link.label}`}>
                         {link.external ? (
                           <a href={link.href} download>
-                            <span>{link.label}</span>
+                            <span>{linkLabel(t, link.href, link.label)}</span>
                           </a>
                         ) : (
                           <Link href={link.href} onClick={lockMenusUntilLeave}>
-                            <span>{link.label}</span>
+                            <span>{linkLabel(t, link.href, link.label)}</span>
                           </Link>
                         )}
                       </li>
@@ -277,26 +295,33 @@ export function SiteHeader() {
                     {detectorLinks.map((link) => (
                       <li key={link.href}>
                         <Link href={link.href} onClick={lockMenusUntilLeave}>
-                          <span>{link.label}</span>
+                          <span>{linkLabel(t, link.href, link.label)}</span>
                         </Link>
                       </li>
                     ))}
-                    {veterinaryLinks.slice(0, 3).map((link) => (
+                    {accessoryLinks.map((link) => (
                       <li key={link.href}>
                         <Link href={link.href} onClick={lockMenusUntilLeave}>
-                          <span>{link.label}</span>
+                          <span>{linkLabel(t, link.href, link.label)}</span>
+                        </Link>
+                      </li>
+                    ))}
+                    {veterinaryLinks.map((link) => (
+                      <li key={link.href}>
+                        <Link href={link.href} onClick={lockMenusUntilLeave}>
+                          <span>{linkLabel(t, link.href, link.label)}</span>
                         </Link>
                       </li>
                     ))}
                   </ul>
                 </li>
                 <li className="has-children">
-                  <span>Contact</span>
+                  <span>{t.nav.contact}</span>
                   <ul className="sub-menu">
                     {contactLinks.map((link) => (
                       <li key={link.href}>
                         <Link href={link.href} onClick={lockMenusUntilLeave}>
-                          <span>{link.label}</span>
+                          <span>{linkLabel(t, link.href, link.label)}</span>
                         </Link>
                       </li>
                     ))}

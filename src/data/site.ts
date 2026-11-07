@@ -20,7 +20,6 @@ export type NavLink = { href: string; label: string; external?: boolean };
 
 export const companyLinks: NavLink[] = [
   { href: "/about-us", label: "About us" },
-  { href: "/commitment", label: "Commitment to Quality" },
 ];
 
 export const detectorLinks: NavLink[] = [
@@ -61,6 +60,7 @@ export const contactLinks: NavLink[] = [
 ];
 
 export const industryLinks: NavLink[] = [
+  { href: "/industries/dental", label: "Dental" },
   { href: "/industries/orthopedic", label: "Orthopedic" },
   { href: "/industries/clinics", label: "Clinics & Hospitals" },
   { href: "/industries/mobile", label: "Mobile X-Rays" },

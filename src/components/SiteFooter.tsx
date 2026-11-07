@@ -1,8 +1,12 @@
-import Link from "next/link";
+import Image from "next/image";
+import { LocaleLink } from "@/components/LocaleLink";
 import { company, footerSolutionLinks, industryLinks } from "@/data/site";
+import { getDictionary, linkLabel } from "@/i18n/dictionary";
+import { getLocale } from "@/i18n/get-locale";
 
-export function SiteFooter() {
+export async function SiteFooter() {
   const year = new Date().getFullYear();
+  const t = getDictionary(await getLocale());
 
   return (
     <div className="footer-area-wrapper bg-gray">
@@ -11,10 +15,12 @@ export function SiteFooter() {
           <div className="row footer-widget-wrapper">
             <div className="col-lg-3 col-md-6 col-sm-6 col-12 footer-widget">
               <div className="footer-widget__logo mb-30">
-                <img
+                <Image
                   src="/assets/images/logo/dark-logo-160x48.png"
                   className="img-fluid"
                   alt={company.name}
+                  width={160}
+                  height={48}
                 />
               </div>
               <ul className="footer-widget__list">
@@ -35,53 +41,53 @@ export function SiteFooter() {
                   </a>
                 </li>
                 <li>
-                  <Link href="/" className="hover-style-link text-color-primary">
+                  <LocaleLink href="/" className="hover-style-link text-color-primary">
                     www.aspenimaging.com
-                  </Link>
+                  </LocaleLink>
                 </li>
               </ul>
             </div>
             <div className="col-lg-3 col-md-2 col-sm-6 col-6 footer-widget">
-              <h6 className="footer-widget__title mb-20">Company</h6>
+              <h6 className="footer-widget__title mb-20">{t.footer.company}</h6>
               <ul className="footer-widget__list">
                 <li>
-                  <Link href="/about-us" className="hover-style-link">
-                    About us
-                  </Link>
+                  <LocaleLink href="/about-us" className="hover-style-link">
+                    {linkLabel(t, "/about-us", "About us")}
+                  </LocaleLink>
                 </li>
                 <li>
-                  <Link href="/contact-us" className="hover-style-link">
-                    Contact Us
-                  </Link>
+                  <LocaleLink href="/contact-us" className="hover-style-link">
+                    {linkLabel(t, "/contact-us", "Contact us")}
+                  </LocaleLink>
                 </li>
               </ul>
             </div>
             <div className="col-lg-3 col-md-2 col-sm-6 col-6 footer-widget">
-              <h6 className="footer-widget__title mb-20">Solutions</h6>
+              <h6 className="footer-widget__title mb-20">{t.footer.solutions}</h6>
               <ul className="footer-widget__list">
                 {footerSolutionLinks.map((link) => (
                   <li key={`${link.href}-${link.label}`}>
                     {link.external ? (
                       <a href={link.href} className="hover-style-link" download>
-                        {link.label}
+                        {linkLabel(t, link.href, link.label)}
                       </a>
                     ) : (
-                      <Link href={link.href} className="hover-style-link">
-                        {link.label}
-                      </Link>
+                      <LocaleLink href={link.href} className="hover-style-link">
+                        {linkLabel(t, link.href, link.label)}
+                      </LocaleLink>
                     )}
                   </li>
                 ))}
               </ul>
             </div>
             <div className="col-lg-3 col-md-2 col-sm-6 col-6 footer-widget">
-              <h6 className="footer-widget__title mb-20">Industries</h6>
+              <h6 className="footer-widget__title mb-20">{t.footer.industries}</h6>
               <ul className="footer-widget__list">
                 {industryLinks.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className="hover-style-link">
-                      {link.label}
-                    </Link>
+                    <LocaleLink href={link.href} className="hover-style-link">
+                      {linkLabel(t, link.href, link.label)}
+                    </LocaleLink>
                   </li>
                 ))}
               </ul>
@@ -95,7 +101,7 @@ export function SiteFooter() {
             <div className="col-md-6 text-center text-md-left">
               <span className="copyright-text">
                 Copyright © {year}{" "}
-                <Link href="/">{company.name}.</Link> All Rights Reserved.
+                <LocaleLink href="/">{company.name}.</LocaleLink> {t.footer.rights}
               </span>
             </div>
             <div className="col-md-6 text-center text-md-right">
